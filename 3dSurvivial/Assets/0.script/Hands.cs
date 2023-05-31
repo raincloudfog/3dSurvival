@@ -6,7 +6,7 @@ public class Hands : MonoBehaviour
 {
     Animator anim;
 
-    bool Act = true;
+    
     private void Start()
     {
         anim = GetComponent<Animator>();

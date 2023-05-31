@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     float currentCameraRotationX;
 
     public bool isSit = false; // 기본 앉아있지 않으니 false;
-    bool isGround = true;
+    bool isGround = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,14 +98,14 @@ public class Player : MonoBehaviour
         isSit = !isSit;
         if(isSit == true)
         {
-            cam.transform.position = new Vector3(0, -0.5f, 0);
+            //cam.transform.position = new Vector3(0, -0.5f, 0);
             transform.localScale = new Vector3(1, 0.5f, 1);
             speed = Originspeed * 0.5f;
             
         }
         else
         {
-            cam.transform.position = new Vector3(0, 1, 0);
+            //cam.transform.position = new Vector3(0, 1, 0);
             transform.localScale = new Vector3(1, 1, 1);
             speed = Originspeed;
             

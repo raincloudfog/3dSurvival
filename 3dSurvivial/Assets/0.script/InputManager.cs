@@ -8,14 +8,15 @@ public class InputManager : SingletonMono<InputManager>
 {
 
     Dictionary<KeyCode, Action> KeyActions = new Dictionary<KeyCode, Action>(); // 키코드값 안에 액션안에 함수가 있다
-
-    Player player;
-
-    protected override void Init()
+    public Dictionary<KeyCode, Action> Keyactions // 위에 Keyactions를 퍼블릭해도 되지만 한번 해보았음.
     {
-        
+        get
+        {
+           return KeyActions;
+        }
+        private set { }
     }
-
+    
     public void AddFunction(KeyCode _key, Action _action)
     {
         if(KeyActions.ContainsKey(_key))//만약 같은 키면

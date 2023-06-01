@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // 이 코드는 뭐가 더 최적화에 좋은지 확인하는 과정에서 주석이 많습니다.
-public abstract class ObjectClass : MonoBehaviour
+public class ObjectClass : MonoBehaviour
 {
 
     protected Player player;
@@ -12,29 +12,35 @@ public abstract class ObjectClass : MonoBehaviour
 
     protected int Hp = 5; // 나무, 금광 체력;
 
-    public abstract void PickUp(); // 아이템 획득 추상 함수
+    public virtual void PickUp() // 아이템 획득 추상 함수
+    {
+
+    }
+        
     protected void NoPickup() // 아이템이 없는걸로 바꿔준다.
     {
         // 아무것도 할 수 없게 하는 용도
     }
 
-    private void Start()
+    private void Awake()
     {
-        if(player ==null)
+        if (player == null)
         {
             player = FindObjectOfType<Player>();
-        }        
-        if(hands == null)
+        }
+        if (hands == null)
         {
             hands = FindObjectOfType<Hands>();
         }
     }
 
-    private void OnDrawGizmos()
+    
+
+   /* private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + Vector3.up, transform.lossyScale * 1.5f);
-    }
+    }*/
 
     private void FixedUpdate()
     {
@@ -44,7 +50,8 @@ public abstract class ObjectClass : MonoBehaviour
         float distance = (playerpos - pos).sqrMagnitude;
         if(distance <= 2)
         {
-            InputManager.Instance.AddFunction(KeyCode.E, PickUp); // 플레이어 감지하면 픽업 사용
+            if(GetComponent<Tree>() == false && GetComponent<OreRock>() == false)
+                InputManager.Instance.AddFunction(KeyCode.E, PickUp); // 플레이어 감지하면 픽업 사용
         }
         else if(distance > 2) // 만약 근처에 플레이어가 없을 경우 아이템을 줍지 못한다.
         {

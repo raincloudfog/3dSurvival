@@ -32,6 +32,10 @@ public class PickAxe : Itemscript, IWeaponType
         {
             return;
         }
+        if(GameManager.Instance.isActive == false)
+        {
+            return;
+        }
 
         Debug.Log("µÇ¾ßµÊ");
 

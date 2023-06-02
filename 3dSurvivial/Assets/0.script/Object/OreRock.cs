@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class OreRock : ObjectClass
 {
-
+    bool ishit = false;
     public override void PickUp()
     {
+        if (ishit == true || GameManager.Instance.isActive == false)
+        {
+            return;
+        }
         Hp -= 1;
+        StartCoroutine(Delay());
         Debug.Log("광석 때림");
         if (Hp <= 0)
         {
@@ -18,6 +23,14 @@ public class OreRock : ObjectClass
     private void OnEnable()
     {
         Hp = 5; // 시작했을때 체력
+        ishit = false;
+    }
+    IEnumerator Delay()
+    {
+        ishit = true;
+        yield return new WaitForSeconds(0.5f);
+        ishit = false;
+        yield break;
     }
 
 }

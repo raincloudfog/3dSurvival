@@ -14,7 +14,6 @@ public class ObjectClass : MonoBehaviour
 
     public virtual void PickUp() // 아이템 획득 추상 함수
     {
-
     }
         
     protected void NoPickup() // 아이템이 없는걸로 바꿔준다.
@@ -32,9 +31,7 @@ public class ObjectClass : MonoBehaviour
         {
             hands = FindObjectOfType<Hands>();
         }
-    }
-
-    
+    }    
 
    /* private void OnDrawGizmos()
     {

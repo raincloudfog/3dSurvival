@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    
     Camera cam;
 
     Rigidbody rigid;
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     float JumpPower = 5f;
     float camX, camY;
     float currentCameraRotationX;
+    float raycastDistace = 2f;
 
     public bool isSit = false; // 기본 앉아있지 않으니 false;
     bool isGround = false;
@@ -45,9 +46,21 @@ public class Player : MonoBehaviour
         CameraMove();
         CameraMoveY();
         IsGround();
-        
+        check();
     }
+    void check()
+    {
+        Ray ray = new Ray();
+        ray.origin = transform.position;
+        ray.direction = transform.forward;
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit, raycastDistace))
+        {
+            if (hit.collider.GetComponent<ObjectClass>() == true)
+                hit.collider.GetComponent<ObjectClass>().PickUp();
+        }
+    }
     void IsGround()
     {
         if(Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.0001f,LayerMask.GetMask("Ground")))
@@ -55,7 +68,6 @@ public class Player : MonoBehaviour
             isGround = true;
         }
     }
-
 
     void Move() // 캐릭터 이동 
     {
@@ -71,12 +83,8 @@ public class Player : MonoBehaviour
 
     }
     void CameraMove() // 캐릭터 마우스 방향으로 캐릭터 회전값 변경
-    {
-        
-        camX = Input.GetAxisRaw("Mouse X");
-        
-        
-                
+    {        
+        camX = Input.GetAxisRaw("Mouse X");                                
         transform.Rotate(Vector3.up,  camX * rotationSpeed, Space.World);
         cam.transform.Rotate(transform.right, camY, Space.World);
         
@@ -89,8 +97,6 @@ public class Player : MonoBehaviour
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -30, 30);
 
         cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0, 0);
-
-
     }
 
     void Sit() // 앉기 함수
@@ -100,15 +106,13 @@ public class Player : MonoBehaviour
         {
             //cam.transform.position = new Vector3(0, -0.5f, 0);
             transform.localScale = new Vector3(1, 0.5f, 1);
-            speed = Originspeed * 0.5f;
-            
+            speed = Originspeed * 0.5f;            
         }
         else
         {
             //cam.transform.position = new Vector3(0, 1, 0);
             transform.localScale = new Vector3(1, 1, 1);
-            speed = Originspeed;
-            
+            speed = Originspeed;            
         }        
     }
 
@@ -131,7 +135,5 @@ public class Player : MonoBehaviour
         }
         rigid.velocity = Vector3.up * JumpPower;
         isGround = false;        
-    }   
-
-   
+    }      
 }

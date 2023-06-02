@@ -19,14 +19,14 @@ public class Hands : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            ActiveOn();
+        }*/
+        if(Input.GetMouseButton(0))
         {
             ActiveOn();
         }
-        /*if(Input.GetMouseButton(0))
-        {
-            Active();
-        }*/
         if(Input.GetMouseButtonUp(0))
         {
             ActiveOff();
@@ -35,19 +35,17 @@ public class Hands : MonoBehaviour
     void ActiveOn()
     {             
         anim.SetBool("Active", true);
-        if (Weapon.GetComponent<PickAxe>() == true)
-        {
-            Weapon.GetComponent<PickAxe>().Attack();
-        }
-        else if (Weapon.GetComponent<Axe>() == true)
-        {
-            Weapon.GetComponent<Axe>().Attack();
-        }
+        
+        GameManager.Instance.isActive = true;
+        
+        
+        
 
     }
     void ActiveOff()
     {
         anim.SetBool("Active", false);
+        GameManager.Instance.isActive = false;
     }
     void Active()
     {

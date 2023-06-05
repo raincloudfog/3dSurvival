@@ -48,7 +48,10 @@ public class Player : MonoBehaviour
         IsGround();
         check();
     }
-    void check()
+    /// <summary>
+    /// 오브젝트를 확인하기위한 플레이어의 함수
+    /// </summary>
+    void check() 
     {
         Ray ray = new Ray();
         ray.origin = transform.position;
@@ -61,7 +64,10 @@ public class Player : MonoBehaviour
                 hit.collider.GetComponent<ObjectClass>().PickUp();
         }
     }
-    void IsGround()
+    /// <summary>
+    /// 땅인지 확인하기 위한 함수
+    /// </summary>
+    void IsGround() 
     {
         if(Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.0001f,LayerMask.GetMask("Ground")))
         {
@@ -89,6 +95,9 @@ public class Player : MonoBehaviour
         cam.transform.Rotate(transform.right, camY, Space.World);
         
     }
+    /// <summary>
+    /// 카메라가 상하로 움직이는 함수
+    /// </summary>
     void CameraMoveY()
     {
         camY = Input.GetAxisRaw("Mouse Y");

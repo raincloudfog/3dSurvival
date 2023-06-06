@@ -89,7 +89,9 @@ public class Player : MonoBehaviour
 
     }
     void CameraMove() // 캐릭터 마우스 방향으로 캐릭터 회전값 변경
-    {        
+    {
+        if (ItemManager.Instance.inventoryActivated == false)
+            return;
         camX = Input.GetAxisRaw("Mouse X");                                
         transform.Rotate(Vector3.up,  camX * rotationSpeed, Space.World);
         cam.transform.Rotate(transform.right, camY, Space.World);
@@ -100,6 +102,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void CameraMoveY()
     {
+        if (ItemManager.Instance.inventoryActivated == false)
+            return;
+
         camY = Input.GetAxisRaw("Mouse Y");
         float cameraY = -camY;
         currentCameraRotationX += cameraY;

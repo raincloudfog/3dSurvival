@@ -7,6 +7,10 @@ using UnityEngine;
 public class ObjectClass : MonoBehaviour
 {
 
+    public Item _itme; // 기본 아이템 값;
+
+    public Inventory inventory; // 인벤토리 연결된상태
+
     protected Player player;
     protected Hands hands;
 
@@ -30,6 +34,10 @@ public class ObjectClass : MonoBehaviour
         if (hands == null)
         {
             hands = FindObjectOfType<Hands>();
+        }
+        if(inventory == null)
+        {
+            inventory = FindObjectOfType<Inventory>();
         }
     }    
 

@@ -13,6 +13,7 @@ public class OreRock : ObjectClass
         }
         Hp -= 1;
         StartCoroutine(Delay());
+        
         Debug.Log("±¤¼® ¶§¸²");
         if (Hp <= 0)
         {
@@ -28,6 +29,7 @@ public class OreRock : ObjectClass
     IEnumerator Delay()
     {
         ishit = true;
+        inventory.AcquireItem(_item, 1);
         yield return new WaitForSeconds(0.5f);
         ishit = false;
         yield break;

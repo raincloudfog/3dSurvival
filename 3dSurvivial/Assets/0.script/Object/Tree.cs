@@ -31,6 +31,7 @@ public class Tree : ObjectClass
     IEnumerator Delay()
     {
         ishit = true;
+        inventory.AcquireItem(_item, 1);
         yield return new WaitForSeconds(0.5f);
         ishit = false;
         yield break;

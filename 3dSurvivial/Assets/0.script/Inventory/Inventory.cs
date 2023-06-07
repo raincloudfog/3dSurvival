@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class Inventory : MonoBehaviour
 {
 
-    
+   
 
 
 
@@ -14,6 +17,8 @@ public class Inventory : MonoBehaviour
     private GameObject InventoryBase;
     [SerializeField]
     private GameObject SlotsParent;
+    [SerializeField]
+    private GameObject Createinven;
 
     public Slot[] slots;
     public bool invenOpen = true;
@@ -41,6 +46,31 @@ public class Inventory : MonoBehaviour
                 CloseInventory();
             }
         }
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            if (ItemManager.Instance.CreateinvenActivated == true)
+            {
+                OpenCreateinven();
+            }
+            else
+            {
+                closeCreateinven();
+            }
+        }
+    }
+
+    void OpenCreateinven()
+    {
+        Createinven.SetActive(true);
+        ItemManager.Instance.CreateinvenActivated = false;
+        Time.timeScale = 0;
+    }
+
+    void closeCreateinven()
+    {
+        Createinven.SetActive(false);
+        ItemManager.Instance.CreateinvenActivated = true;
+        Time.timeScale = 1;
     }
     void OpenInventory()
     {
@@ -84,10 +114,14 @@ public class Inventory : MonoBehaviour
             Debug.Log("아이템 없을경우 아이템");
             if (slots[i].item == null)
             {
-                Debug.Log("아이템 없을경우 아이템2");
                 slots[i].AddItem(_item,_count);
                 return;
             }
         }
+    }
+
+    public int GetIsAbleCount(int item_Key)
+    {
+        return 1 ;
     }
 }

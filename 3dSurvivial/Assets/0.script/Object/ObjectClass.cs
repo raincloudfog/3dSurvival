@@ -7,7 +7,7 @@ using UnityEngine;
 public class ObjectClass : MonoBehaviour
 {
 
-    public Item _itme; // 기본 아이템 값;
+    public Item _item; // 기본 아이템 값;
 
     public Inventory inventory; // 인벤토리 연결된상태
 

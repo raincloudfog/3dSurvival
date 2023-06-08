@@ -7,11 +7,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-
-   
-
-
-
     //필요한 컴포넌트
     [SerializeField]
     private GameObject InventoryBase;

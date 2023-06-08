@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class Slot : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class Slot : MonoBehaviour,IPointerClickHandler
 {
 
     public Item item; // 획득한 아이템
@@ -14,6 +16,13 @@ public class Slot : MonoBehaviour
     private TMP_Text text_Count;
     [SerializeField]
     private GameObject CountImage;
+
+    private WeaponManager weaponManager;
+
+    void Start()
+    {
+        weaponManager = FindObjectOfType<WeaponManager>();
+    }
 
     /// <summary>
     /// 이미지 투명도 조절
@@ -59,19 +68,46 @@ public class Slot : MonoBehaviour
         itemCount += _count;
         text_Count.text = itemCount.ToString();
 
-        if (itemCount <= 0)
+        if (itemCount <= 0) // 만약 0이면 
         {
-            ClearSlot();
+            ClearSlot(); // 그칸을 초기화한다
         }
     }
-    private void ClearSlot()
+    private void ClearSlot() // 초기화 슬롯
     {
-        item = null;
-        itemCount = 0;
+        item = null; // 아이템을 null로 바꿔줌
+        itemCount = 0; // 숫자도 0으로 만들어주기
         itemimage.sprite = null;
         SetColor(0);
 
         text_Count.text = "0";
         CountImage.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            if(item != null)
+            {
+                if(item.itemType == Item.ItemType.Equipment)
+                {
+                    //만약 장비면 장착
+                    if(item.itemName == "PickAxe")
+                    {
+                        WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.pickAxe;
+                    }
+                    else if(item.itemName == "Axe")
+                    {
+                        WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.Axe;
+                    }
+                }
+                else
+                {
+                    Debug.Log(item.itemName);
+                    SetSlotcount(-1);
+                }
+            }
+        }
     }
 }

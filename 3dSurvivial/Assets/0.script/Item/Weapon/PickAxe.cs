@@ -42,17 +42,6 @@ public class PickAxe : Itemscript, IWeaponType
         Tree treeComponent = Object.GetComponent<Tree>();
         OreRock oreRockComponent = Object.GetComponent<OreRock>();
 
-        
-        if (treeComponent != null)
-        {
-            treeComponent.PickUp();
-            Debug.Log("왜 오류뜸?");
-        }
-        else if (treeComponent == null)
-        {
-            Debug.Log("왜 비어있음?");
-        }
-
         if (oreRockComponent != null)
         {
             oreRockComponent.PickUp();

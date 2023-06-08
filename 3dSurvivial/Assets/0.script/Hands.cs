@@ -47,11 +47,5 @@ public class Hands : MonoBehaviour
         anim.SetBool("Active", false);
         GameManager.Instance.isActive = false;
     }
-    void Active()
-    {
-        if (Weapon.GetComponent<PickAxe>() == true)
-        {
-            Weapon.GetComponent<IWeaponType>().Attack();
-        }
-    }
+   
 }

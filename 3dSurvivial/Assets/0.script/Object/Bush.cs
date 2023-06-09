@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Bush : ObjectClass
 {
+    [SerializeField]Item plusitem;
     public override void PickUp()
     {
         Debug.Log("아이템 주움");
         InputManager.Instance.AddFunction(KeyCode.E, NoPickup); // 픽업 후 바로 함수가 빈걸로 바꿔야 여러번 안눌림.
         inventory.AcquireItem(_item, 1);
+        inventory.AcquireItem(plusitem, 1);
         ObjectPool.Instance.ObjectsReturn(this); // 오브젝트풀로 전달
     }
 }

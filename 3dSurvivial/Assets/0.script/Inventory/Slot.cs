@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour,IPointerClickHandler
+public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+
+    private Vector3 Originpos;
 
     public Item item; // »πµÊ«— æ∆¿Ã≈€
     public int itemCount; // »πµÊ«— æ∆¿Ã≈€ ∞≥ºˆ
@@ -21,6 +23,7 @@ public class Slot : MonoBehaviour,IPointerClickHandler
 
     void Start()
     {
+        Originpos = transform.position;
         weaponManager = FindObjectOfType<WeaponManager>();
     }
 
@@ -102,12 +105,68 @@ public class Slot : MonoBehaviour,IPointerClickHandler
                         WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.Axe;
                     }
                 }
+                if(item.itemName == "Berry")
+                {
+                    GameManager.Instance.Hunger += 5f;
+                    SetSlotcount(-1);
+                }
                 else
                 {
                     Debug.Log(item.itemName);
                     SetSlotcount(-1);
                 }
             }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if(item != null)
+        {
+            DragSlot.Instance.dragSlot = this;
+            DragSlot.Instance.DragSetImage(itemimage);
+
+            DragSlot.Instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            DragSlot.Instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot.Instance.SetColor(0);
+        DragSlot.Instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(DragSlot.Instance.dragSlot != null)
+        {
+            ChangeSlot();
+        }
+        
+    }
+
+    private void ChangeSlot()
+    {
+        Item _tmpItem = item;
+        int _tmpItemCount = itemCount;
+
+        AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
+
+        if(_tmpItem != null)
+        {
+            DragSlot.Instance.dragSlot.AddItem(_tmpItem, _tmpItemCount);
+        }
+        else
+        {
+            DragSlot.Instance.dragSlot.ClearSlot();
         }
     }
 }

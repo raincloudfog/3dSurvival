@@ -61,7 +61,10 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out hit, raycastDistace))
         {
             if (hit.collider.GetComponent<ObjectClass>() == true)
-                hit.collider.GetComponent<ObjectClass>().PickUp();
+            {
+
+            }
+                //hit.collider.GetComponent<ObjectClass>().PickUp();
         }
     }
     /// <summary>

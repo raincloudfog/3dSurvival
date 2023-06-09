@@ -13,7 +13,8 @@ public class Tree : ObjectClass
     public override void PickUp() // 나무 부시기
     {
 
-        if (ishit == true || GameManager.Instance.isActive == false)
+        if ((ishit == true || GameManager.Instance.isActive == false) ||
+            WeaponManager.Instance.weaponenum != WeaponManager.WeaponType.Axe)
         {
             return;
         }

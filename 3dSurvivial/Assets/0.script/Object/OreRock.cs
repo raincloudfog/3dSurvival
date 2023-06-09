@@ -7,7 +7,8 @@ public class OreRock : ObjectClass
     bool ishit = false;
     public override void PickUp()
     {
-        if (ishit == true || GameManager.Instance.isActive == false)
+        if ((ishit == true || GameManager.Instance.isActive == false)
+            || WeaponManager.Instance.weaponenum != WeaponManager.WeaponType.pickAxe)
         {
             return;
         }

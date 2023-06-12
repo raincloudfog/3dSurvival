@@ -33,6 +33,21 @@ public class Tree : ObjectClass
     {
         ishit = true;
         inventory.AcquireItem(_item, 1);
+        if (ItemManager.Instance.items.ContainsKey(Materialtype.Wood))
+        {
+            if (ItemManager.Instance.items[Materialtype.Wood] >= 1)
+            {
+                ItemManager.Instance.items[Materialtype.Wood] += 1;
+                Debug.Log("1더해줌" + ItemManager.Instance.items[Materialtype.Wood]);
+            }
+        }
+
+        else if (ItemManager.Instance.items.ContainsKey(Materialtype.Wood) == false)
+        {
+            ItemManager.Instance.items.Add(Materialtype.Wood, 1);
+            Debug.Log("아무것도 없어서 1더해줌" + ItemManager.Instance.items[Materialtype.Wood]);
+
+        }
         yield return new WaitForSeconds(0.5f);
         ishit = false;
         yield break;

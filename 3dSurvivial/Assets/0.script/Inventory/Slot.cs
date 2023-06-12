@@ -49,7 +49,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         itemCount = _count;
         itemimage.sprite = item.itemImage;
 
-        if(item.itemType != Item.ItemType.Equipment)
+        if(item.itemType != ItemType.Equipment)
         {
             CountImage.SetActive(true);
             text_Count.text = itemCount.ToString();
@@ -93,7 +93,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             if(item != null)
             {
-                if(item.itemType == Item.ItemType.Equipment)
+                if(item.itemType == ItemType.Equipment)
                 {
                     //만약 장비면 장착
                     if(item.itemName == "PickAxe")

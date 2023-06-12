@@ -12,12 +12,35 @@ public class ButtonManager : SingletonMono<ButtonManager>
     [SerializeField] Item[] _item;
     public void onAxe()
     {
-        _inven.AcquireItem(_item[0], 1);
+        if (ItemManager.Instance.items.ContainsKey(Materialtype.Bush) &&
+            ItemManager.Instance.items.ContainsKey(Materialtype.Rock) &&
+            ItemManager.Instance.items.ContainsKey(Materialtype.Wood))
+        {
+            if (ItemManager.Instance.PickAxe() == true) // 만약 아이템 매니저의 조합식이 성립되면 곡괭이 획득
+            {
+                _inven.AcquireItem(_item[0], 1);
+            }
+
+
+        }
+
+        
     }
 
     public void onpickaxe()
     {
-        _inven.AcquireItem(_item[1], 1);
+        if(ItemManager.Instance.items.ContainsKey(Materialtype.Bush) &&
+            ItemManager.Instance.items.ContainsKey(Materialtype.Rock) &&
+            ItemManager.Instance.items.ContainsKey(Materialtype.Wood))
+        {
+            if(ItemManager.Instance.Axe() == true) // 만약 아이템 매니저의 조합식이 성립되면 곡괭이 획득
+            {
+                _inven.AcquireItem(_item[1], 1);
+            }
+            
+            
+        }
+        
     }
 
     public void onFire()
@@ -26,4 +49,6 @@ public class ButtonManager : SingletonMono<ButtonManager>
         buttons[2].image.raycastTarget = false;
         buttons[2].image.color = Color.black;
     }
+
+    
 }

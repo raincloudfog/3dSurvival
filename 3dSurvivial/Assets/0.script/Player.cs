@@ -47,7 +47,10 @@ public class Player : MonoBehaviour
         CameraMoveY();
         IsGround();
         check();
+        CheckDesk();
     }
+
+
     /// <summary>
     /// 오브젝트를 확인하기위한 플레이어의 함수
     /// </summary>
@@ -153,4 +156,24 @@ public class Player : MonoBehaviour
         rigid.velocity = Vector3.up * JumpPower;
         isGround = false;        
     }      
+    void CheckDesk()
+    {
+        RaycastHit hit;
+        if(Physics.BoxCast(transform.position, transform.lossyScale / 2, transform.forward, out hit,Quaternion.identity, 1f))
+        {
+            if(hit.collider.CompareTag("Desk") == true)
+            {
+
+
+                InputManager.Instance.AddFunction(KeyCode.E, UIManager.Instance.CreftBoxOn);
+
+            }
+            
+        }
+        if (hit.collider == null)
+        {
+            
+            UIManager.Instance.CreftBoxOff();
+        }
+    }
 }

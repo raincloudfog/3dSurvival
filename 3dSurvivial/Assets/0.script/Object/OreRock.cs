@@ -31,6 +31,21 @@ public class OreRock : ObjectClass
     {
         ishit = true;
         inventory.AcquireItem(_item, 1);
+        if (ItemManager.Instance.items.ContainsKey(Materialtype.Rock))
+        {
+            if (ItemManager.Instance.items[Materialtype.Rock] >= 1)
+            {
+                ItemManager.Instance.items[Materialtype.Rock] += 1;
+                Debug.Log("1더해줌" + ItemManager.Instance.items[Materialtype.Bush]);
+            }
+        }
+
+        else if (ItemManager.Instance.items.ContainsKey(Materialtype.Rock) == false)
+        {
+            ItemManager.Instance.items.Add(Materialtype.Rock, 1);
+            Debug.Log("아무것도 없어서 1더해줌" + ItemManager.Instance.items[Materialtype.Rock]);
+
+        }
         yield return new WaitForSeconds(0.5f);
         ishit = false;
         yield break;

@@ -84,7 +84,7 @@ public class Inventory : MonoBehaviour
 
     public void AcquireItem(Item _item, int _count)
     {
-        if(Item.ItemType.Equipment != _item.itemType)
+        if(ItemType.Equipment != _item.itemType)
         {
             //아이템이 있을경우
             for (int i = 0; i < slots.Length; i++)

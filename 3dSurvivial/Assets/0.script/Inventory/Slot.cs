@@ -21,6 +21,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     private WeaponManager weaponManager;
 
+
+    [SerializeField] bool isstackmove = false;
+
+
+
     void Start()
     {
         Originpos = transform.position;
@@ -105,23 +110,56 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                         WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.Axe;
                     }
                 }
-                if(item.itemName == "Berry")
+                else if(item.itemName == "Berry")
                 {
                     GameManager.Instance.Hunger += 5f;
                     SetSlotcount(-1);
                 }
                 else
                 {
-                    Debug.Log(item.itemName);
-                    SetSlotcount(-1);
+                    if(itemCount > 1)
+                    {
+                        /*DragSlot.Instance.dragSlot = this;
+                        DragSlot.Instance.DragSetImage(itemimage);
+
+                        DragSlot.Instance.transform.position = eventData.position;*/
+
+                        Debug.Log(item.itemName);
+                        isstackmove = true;
+                        SetSlotcount(-1);
+                        
+                    }                    
                 }
             }
         }
     }
 
+
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(item != null)
+
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            if(item != null)
+            {
+                if (itemCount > 1)
+                {
+                    DragSlot.Instance.dragSlot = this;
+                    DragSlot.Instance.DragSetImage(itemimage);
+
+                    DragSlot.Instance.transform.position = eventData.position;
+
+                    Debug.Log(item.itemName);
+                    isstackmove = true;
+                    SetSlotcount(-1);
+                    return;
+                }
+            }
+        }
+
+
+        if(item != null || isstackmove == true)
         {
             DragSlot.Instance.dragSlot = this;
             DragSlot.Instance.DragSetImage(itemimage);
@@ -132,7 +170,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (item != null || isstackmove == true)
         {
             DragSlot.Instance.transform.position = eventData.position;
         }
@@ -140,8 +178,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        DragSlot.Instance.SetColor(0);
-        DragSlot.Instance.dragSlot = null;
+        if(isstackmove == false)
+        {
+            DragSlot.Instance.SetColor(0);
+            DragSlot.Instance.dragSlot = null;
+        }
+        
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -149,7 +191,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         if(DragSlot.Instance.dragSlot != null)
         {
             ChangeSlot();
+            if (isstackmove == true)
+            {
+                isstackmove = false;
+            }
         }
+        
         
     }
 
@@ -166,7 +213,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         }
         else
         {
-            DragSlot.Instance.dragSlot.ClearSlot();
+            if(isstackmove == false)
+                DragSlot.Instance.dragSlot.ClearSlot();
         }
     }
 }

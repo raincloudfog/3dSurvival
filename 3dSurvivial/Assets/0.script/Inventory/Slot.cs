@@ -18,16 +18,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     [SerializeField]
     private GameObject CountImage;
 
-    private WeaponManager weaponManager;
-
-
-    [SerializeField] bool isstackmove = false;    
-
-    void Start()
-    {       
-        weaponManager = FindObjectOfType<WeaponManager>();
-    }
-
     public void SetItemCountTxt()
     {
         text_Count.text = itemCount.ToString();
@@ -157,14 +147,25 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     
     public void OnDrag(PointerEventData eventData)
     {
-        //if (item != null)
-        {
-            DragSlot.Instance.transform.position = eventData.position;
-        }
+        
+         DragSlot.Instance.transform.position = eventData.position;
+        
     }
 
     public void OnDrop(PointerEventData eventData)
     {
+        if(eventData.pointerEnter.GetComponent<Slot>().item != null)
+        {
+            Debug.Log("일단 드롭위치에 슬롯 아이템이 있긴 있음.");
+            if(eventData.pointerEnter.GetComponent<Slot>().item.itemName ==
+                DragSlot.Instance.dragSlot.item.itemName)
+            {
+                Debug.Log("이름도 일치함.");
+                Debug.Log(eventData.pointerEnter.GetComponent<Slot>().item.itemName);
+                eventData.pointerEnter.GetComponent<Slot>().AddSlotcount(DragSlot.Instance.dragSlot.itemCount);
+            }
+        }
+
         Debug.Log("OnDrop 불린 슬롯의 인덱스 : " + Index);
         if(DragSlot.Instance.dragSlot != null)//0번 내가 처음에 들기 시작한 친구. 
         {            

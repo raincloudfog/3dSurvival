@@ -13,18 +13,20 @@ public class CreftBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        slots = GetComponentsInChildren<Slot>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (slots[0].item.itemName == "Rock" &&
-            slots[1].item.itemName == "Bush" &&
-            slots[2].item.itemName == "Rock" &&
-            slots[4].item.itemName == "Wood" &&
-            slots[7].item.itemName == "Wood")
+        slots[1].item.itemName == "Bush" &&
+        slots[2].item.itemName == "Rock" &&
+        slots[4].item.itemName == "Wood" &&
+        slots[7].item.itemName == "Wood")
         {
+            Debug.Log("°î±ªÀÌ Á¶Áu °¡´É");
             creftButton.onClick.AddListener(PickAxe);
         }
 
@@ -34,8 +36,15 @@ public class CreftBox : MonoBehaviour
             slots[4].item.itemName == "Wood" &&
             slots[7].item.itemName == "Wood")
         {
-            creftButton.onClick.AddListener(PickAxe);
+            Debug.Log("µµ³¢ Á¶Áu °¡´É");
+            creftButton.onClick.AddListener(Axe);
         }
+        else
+        {
+            Debug.Log("Á¶ÇÕ¾ÈµÇ¾ßµÊ");
+        }
+        
+        
     }
 
     public void PickAxe()

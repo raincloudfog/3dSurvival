@@ -13,7 +13,7 @@ public class Rock : ObjectClass
             if (ItemManager.Instance.items[Materialtype.Rock] >= 1)
             {
                 ItemManager.Instance.items[Materialtype.Rock] += 1;
-                Debug.Log("1¥ı«ÿ¡‹" + ItemManager.Instance.items[Materialtype.Bush]);
+                Debug.Log("1¥ı«ÿ¡‹" + ItemManager.Instance.items[Materialtype.Rock]);
             }
         }
 

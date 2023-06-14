@@ -21,6 +21,10 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         slots = SlotsParent.GetComponentsInChildren<Slot>();
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].Index = i;
+        }
     }
 
     // Update is called once per frame
@@ -93,7 +97,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (slots[i].item.itemName == _item.itemName)
                     {
-                        slots[i].SetSlotcount(_count);
+                        slots[i].AddSlotcount(_count);
                         return;
                     }
                 }

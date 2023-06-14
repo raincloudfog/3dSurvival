@@ -8,21 +8,19 @@ public class DragSlot : SingletonMono<DragSlot>
 {
     public Slot dragSlot;
 
-    [SerializeField]
-    private Image imageItem;
-
-    
-
-    public void DragSetImage(Image _itemImage)
+    public void SetDragSlot(Slot slot) //정보 채워넣기. 그려넣기도 포함됨
     {
-        imageItem.sprite = _itemImage.sprite;
-        SetColor(1);
+        dragSlot.AddItem(slot.item, slot.itemCount);
     }
 
-    public void SetColor(float _alpha)
+    public void SetEditItemCount(int count) //개수 수정해서 ui반영
     {
-        Color color = imageItem.color;
-        color.a = _alpha;
-        imageItem.color = color;
+        dragSlot.itemCount = count;
+        dragSlot.SetItemCountTxt();
+    }
+
+    public void ClearSlot() //비워냄
+    {        
+        dragSlot.ClearSlot();
     }
 }

@@ -14,7 +14,7 @@ public class UIManager : SingletonMono<UIManager>
     }
     public void CreftBoxOff()
     {
-        Debug.Log("¹Ú½º ²ô±â");
+        //Debug.Log("¹Ú½º ²ô±â");
         CreftBox.SetActive(false);
     }
 }

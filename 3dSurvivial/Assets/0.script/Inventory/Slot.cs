@@ -5,10 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler,/* IEndDragHandler,*/ IDropHandler
 {
-
-    private Vector3 Originpos;
+    public int Index = 0; // 고유 번호
 
     public Item item; // 획득한 아이템
     public int itemCount; // 획득한 아이템 개수
@@ -22,16 +21,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     private WeaponManager weaponManager;
 
 
-    [SerializeField] bool isstackmove = false;
-
-
+    [SerializeField] bool isstackmove = false;    
 
     void Start()
-    {
-        Originpos = transform.position;
+    {       
         weaponManager = FindObjectOfType<WeaponManager>();
     }
 
+    public void SetItemCountTxt()
+    {
+        text_Count.text = itemCount.ToString();
+    }
     /// <summary>
     /// 이미지 투명도 조절
     /// </summary>
@@ -50,7 +50,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     /// <param name="_count"></param>
     public void AddItem(Item _item, int _count = 1)
     {
-        item = _item;
+        item = _item; 
         itemCount = _count;
         itemimage.sprite = item.itemImage;
 
@@ -73,6 +73,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     /// <param name="_count"></param>
     public void SetSlotcount(int _count)
     {
+        itemCount = _count; 
+        text_Count.text = itemCount.ToString();
+
+        if (itemCount <= 0) // 만약 0이면 
+        {
+            ClearSlot(); // 그칸을 초기화한다
+        }
+    }
+    public void AddSlotcount(int _count)
+    {
         itemCount += _count;
         text_Count.text = itemCount.ToString();
 
@@ -81,8 +91,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
             ClearSlot(); // 그칸을 초기화한다
         }
     }
-    private void ClearSlot() // 초기화 슬롯
+    public void ClearSlot() // 초기화 슬롯
     {
+        Debug.Log("클리어 슬롯의 인덱스 : "+Index);
         item = null; // 아이템을 null로 바꿔줌
         itemCount = 0; // 숫자도 0으로 만들어주기
         itemimage.sprite = null;
@@ -114,22 +125,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                 {
                     GameManager.Instance.Hunger += 5f;
                     SetSlotcount(-1);
-                }
-                else
-                {
-                    if(itemCount > 1)
-                    {
-                        /*DragSlot.Instance.dragSlot = this;
-                        DragSlot.Instance.DragSetImage(itemimage);
-
-                        DragSlot.Instance.transform.position = eventData.position;*/
-
-                        Debug.Log(item.itemName);
-                        isstackmove = true;
-                        SetSlotcount(-1);
-                        
-                    }                    
-                }
+                }                
             }
         }
     }
@@ -138,83 +134,43 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("OnBeginDrag 가 불린 슬롯의 인덱스 : " + Index);
 
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if (item != null)
         {
-            if(item != null)
+            DragSlot.Instance.SetDragSlot(this);
+            if (eventData.button == PointerEventData.InputButton.Left)
             {
-                if (itemCount > 1)
-                {
-                    DragSlot.Instance.dragSlot = this;
-                    DragSlot.Instance.DragSetImage(itemimage);
-
-                    DragSlot.Instance.transform.position = eventData.position;
-
-                    Debug.Log(item.itemName);
-                    isstackmove = true;
-                    SetSlotcount(-1);
-                    return;
-                }
+                ClearSlot();
             }
-        }
-
-
-        if(item != null || isstackmove == true)
-        {
-            DragSlot.Instance.dragSlot = this;
-            DragSlot.Instance.DragSetImage(itemimage);
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                SetSlotcount(itemCount - 1);
+                //isstackmove = true;
+                DragSlot.Instance.SetEditItemCount(1);
+            }            
 
             DragSlot.Instance.transform.position = eventData.position;
-        }
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (item != null || isstackmove == true)
-        {
-            DragSlot.Instance.transform.position = eventData.position;
-        }
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if(isstackmove == false)
-        {
-            DragSlot.Instance.SetColor(0);
-            DragSlot.Instance.dragSlot = null;
         }
         
+    }
+    
+    public void OnDrag(PointerEventData eventData)
+    {
+        //if (item != null)
+        {
+            DragSlot.Instance.transform.position = eventData.position;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        if(DragSlot.Instance.dragSlot != null)
-        {
-            ChangeSlot();
-            if (isstackmove == true)
-            {
-                isstackmove = false;
-            }
-        }
-        
-        
-    }
-
-    private void ChangeSlot()
-    {
-        Item _tmpItem = item;
-        int _tmpItemCount = itemCount;
-
-        AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-
-        if(_tmpItem != null)
-        {
-            DragSlot.Instance.dragSlot.AddItem(_tmpItem, _tmpItemCount);
-        }
-        else
-        {
-            if(isstackmove == false)
-                DragSlot.Instance.dragSlot.ClearSlot();
+        Debug.Log("OnDrop 불린 슬롯의 인덱스 : " + Index);
+        if(DragSlot.Instance.dragSlot != null)//0번 내가 처음에 들기 시작한 친구. 
+        {            
+            AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);                 
+            DragSlot.Instance.ClearSlot();
         }
     }
+
 }

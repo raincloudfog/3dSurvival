@@ -25,10 +25,7 @@ public class Toolbar : MonoBehaviour
     void Start()
     {
         //slots = GetComponentsInChildren<Slot>();
-        for (int i = 0; i < slots.Length; i++)
-        {
-            Debug.Log(i);
-        }
+       
     }
 
     // Update is called once per frame
@@ -36,7 +33,9 @@ public class Toolbar : MonoBehaviour
     { 
         Inputtoolbar();
     }
-
+    /// <summary>
+    /// 툴바에 아이템 사용
+    /// </summary>
     void Inputtoolbar()
     {
 
@@ -65,7 +64,10 @@ public class Toolbar : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// 장비 장착
+    /// </summary>
+    /// <param name="key"></param>
     void Equip(string key)
     {
         int number;
@@ -74,17 +76,17 @@ public class Toolbar : MonoBehaviour
             number = int.Parse(key);
             
         }
-        Debug.Log(number);
+        
         
        /* if (*//*
             slots[number+1].item.itemType == Item.ItemType.Equipment
                 )*/
         
-        if(slots[number - 1].item == null)
+        if(slots[number - 1].item == null) // 만약 툴즈의 슬롯에 아이템이 없으면 그냥 넘어갑니다.
         {
             return;
         }
-        if(slots[number-1].item.itemName == "PickAxe")
+        if(slots[number-1].item.itemName == "PickAxe") // 만약 슬롯칸에 곡괭이가 있다면 무기를 활성화해서 곡괭이를 장착해줍니다.
         {
             if(WeaponManager.Instance.weaponenum == WeaponManager.WeaponType.pickAxe )
             {
@@ -94,7 +96,7 @@ public class Toolbar : MonoBehaviour
             WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.pickAxe;
 
         }
-        else if (slots[number-1].item.itemName == "Axe")
+        else if (slots[number-1].item.itemName == "Axe") // 만약 슬롯칸에 도끼가 있다면 무기를 활성화해서 도끼를 장착해줍니다.
         {
             if (WeaponManager.Instance.weaponenum == WeaponManager.WeaponType.Axe)
             {

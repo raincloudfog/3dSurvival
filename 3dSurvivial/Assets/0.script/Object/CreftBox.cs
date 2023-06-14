@@ -10,10 +10,15 @@ public class CreftBox : MonoBehaviour
     [SerializeField] Item[] items;
     [SerializeField] Button creftButton;
 
+    private void Awake()
+    {
+        slots = GetComponentsInChildren<Slot>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        slots = GetComponentsInChildren<Slot>();
+        //slots = GetComponentsInChildren<Slot>();
     }
 
     // Update is called once per frame
@@ -21,7 +26,7 @@ public class CreftBox : MonoBehaviour
     {
         
         if (slots[0].item.itemName == "Rock" &&
-        slots[1].item.itemName == "Bush" &&
+        slots[1].item.itemName == "bush" &&
         slots[2].item.itemName == "Rock" &&
         slots[4].item.itemName == "Wood" &&
         slots[7].item.itemName == "Wood")
@@ -31,7 +36,7 @@ public class CreftBox : MonoBehaviour
         }
 
         else if (slots[0].item.itemName == "Rock" &&
-            slots[1].item.itemName == "Bush" &&
+            slots[1].item.itemName == "bush" &&
             slots[3].item.itemName == "Rock" &&
             slots[4].item.itemName == "Wood" &&
             slots[7].item.itemName == "Wood")

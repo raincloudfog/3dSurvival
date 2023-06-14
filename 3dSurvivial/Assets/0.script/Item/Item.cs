@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 아이템 타입들
+/// </summary>
 public enum ItemType
 {
-    Equipment,
-    material
+    Equipment, // 장비
+    material, // 재료
+    Food, // 음식
+
+
+    End
 }
 //케이디 14강부터 16강 참조
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]

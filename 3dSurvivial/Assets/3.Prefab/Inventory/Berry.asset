@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 1
   itemImage: {fileID: 21300000, guid: 6b7fde12a199bde4db31b1a81845a7bd, type: 3}
-  itemName: Berry
+  itemName: 3
   weaponType: 

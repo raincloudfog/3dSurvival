@@ -86,7 +86,7 @@ public class Toolbar : MonoBehaviour
         {
             return;
         }
-        if(slots[number-1].item.itemName == "PickAxe") // 만약 슬롯칸에 곡괭이가 있다면 무기를 활성화해서 곡괭이를 장착해줍니다.
+        if(slots[number-1].item.itemName == ItemName.PickAxe) // 만약 슬롯칸에 곡괭이가 있다면 무기를 활성화해서 곡괭이를 장착해줍니다.
         {
             if(WeaponManager.Instance.weaponenum == WeaponManager.WeaponType.pickAxe )
             {
@@ -96,7 +96,7 @@ public class Toolbar : MonoBehaviour
             WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.pickAxe;
 
         }
-        else if (slots[number-1].item.itemName == "Axe") // 만약 슬롯칸에 도끼가 있다면 무기를 활성화해서 도끼를 장착해줍니다.
+        else if (slots[number-1].item.itemName == ItemName.Axe) // 만약 슬롯칸에 도끼가 있다면 무기를 활성화해서 도끼를 장착해줍니다.
         {
             if (WeaponManager.Instance.weaponenum == WeaponManager.WeaponType.Axe)
             {

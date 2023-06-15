@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   itemImage: {fileID: 21300000, guid: b53afe74899aa1344a3df7fbc4ad7ec7, type: 3}
-  itemName: PickAxe
+  itemName: 4
   weaponType: 

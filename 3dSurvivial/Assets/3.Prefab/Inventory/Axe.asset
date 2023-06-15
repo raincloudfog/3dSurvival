@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   itemImage: {fileID: 21300000, guid: 74f6ce3689906f14cab29149efff0027, type: 3}
-  itemName: Axe
+  itemName: 5
   weaponType: 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tree : ObjectClass
 {
-    bool ishit = false;
+    public bool ishit = false;
     private void OnEnable() // 재등장시 체력 돌려주기
     {
         Hp = 5;
@@ -12,15 +12,16 @@ public class Tree : ObjectClass
     }
     public override void PickUp() // 나무 부시기
     {
-
         if ((ishit == true || GameManager.Instance.isActive == false) ||
             WeaponManager.Instance.weaponenum != WeaponManager.WeaponType.Axe)
         {
             return;
         }
-        StartCoroutine(Delay());
         Hp -= 1;
         Debug.Log("나무 때림");
+        StartCoroutine(Delay());
+        
+        
         if (Hp <= 0)
         {
             Debug.Log("나무 부셔짐");
@@ -32,6 +33,7 @@ public class Tree : ObjectClass
     IEnumerator Delay()
     {
         ishit = true;
+        
         inventory.AcquireItem(_item, 1);
         if (ItemManager.Instance.items.ContainsKey(Materialtype.Wood))
         {

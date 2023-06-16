@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class OreRock : ObjectClass
 {
-    bool ishit = false;
+    public bool ishit = false;
+
+    //≥ª æ∆¿Ã≈€ ≈∏¿‘¿∫ µπ¿”.
     public override void PickUp()
     {
-        if ((ishit == true || GameManager.Instance.isActive == false)
-            || WeaponManager.Instance.weaponenum != WeaponManager.WeaponType.pickAxe)
-        {
-            return;
-        }
-        Hp -= 1;
-        StartCoroutine(Delay());
-        
-        Debug.Log("±§ºÆ ∂ß∏≤");
+        Debug.Log("±§ºÆ «»æ˜ Ω««‡µ .");
         if (Hp <= 0)
         {
             Debug.Log("±§ºÆ ∫Œº≈¡¸");
             ObjectPool.Instance.ObjectsReturn(this);
         }
+        if (ishit == false && GameManager.Instance.isActive == true &&
+            WeaponManager.Instance.weaponenum == WeaponManager.WeaponType.pickAxe)
+        {
+            Hp -= 1;
+            Debug.Log("±§ºÆ ∂ß∏≤");
+            StartCoroutine(Delay());
+
+
+
+        }
+        else
+        {
+            Debug.Log("ø÷ æ»ƒ≥¡ˆ¥¬∞≈¡“?");
+
+        }
+
+        
+
     }
     private void OnEnable()
     {
@@ -36,7 +48,7 @@ public class OreRock : ObjectClass
             if (ItemManager.Instance.items[Materialtype.Rock] >= 1)
             {
                 ItemManager.Instance.items[Materialtype.Rock] += 1;
-                Debug.Log("1¥ı«ÿ¡‹" + ItemManager.Instance.items[Materialtype.Bush]);
+                Debug.Log("1¥ı«ÿ¡‹" + ItemManager.Instance.items[Materialtype.Rock]);
             }
         }
 

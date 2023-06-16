@@ -104,9 +104,7 @@ public class Inventory : MonoBehaviour
                 
             }
         }
-
-        
-         
+                 
         //아이템이 없을경우 혹은 장비아이템
         for (int i = 0; i < slots.Length; i++)
         {

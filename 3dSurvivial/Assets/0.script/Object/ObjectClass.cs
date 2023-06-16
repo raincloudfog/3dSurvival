@@ -14,6 +14,8 @@ public class ObjectClass : MonoBehaviour
     protected Player player;
     protected Hands hands;
 
+    //아이템 타입 변수 선언
+
     protected int Hp = 5; // 나무, 금광 체력;
 
     public virtual void PickUp() // 아이템 획득 추상 함수

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Hands : MonoBehaviour
 {
-    Animator anim; // 애니메이션
-    Itemscript Weapon; // 손에 있는 무기
+    Animator anim; // 애니메이션    
+    [SerializeField] Player player;
+    [SerializeField] ObjectClass ObjCComponent;
     
+    [SerializeField]public GameObject _object; // 플레이어한태 받은 오브젝트
     private void Awake()
     {
 
@@ -33,18 +35,46 @@ public class Hands : MonoBehaviour
     }
     void ActiveOn()
     {             
-        anim.SetBool("Active", true);
-        
-        GameManager.Instance.isActive = true;
-        
-        
-        
-
+        anim.SetBool("Active", true); // 움직이기 애니메이션        
+        GameManager.Instance.isActive = true; // 상호작용중
+        CheckObject();                                             
     }
     void ActiveOff()
     {
-        anim.SetBool("Active", false);
-        GameManager.Instance.isActive = false;
+        anim.SetBool("Active", false); // 움직이는 애니메이션 끝
+        GameManager.Instance.isActive = false; // 상호작용 끝
+        CheckOut();
+    }
+    /// <summary>
+    /// 오브젝트들 확인하는 코드
+    /// </summary>
+    void CheckObject()
+    {
+        if(player.Object == null)
+        {
+            Debug.Log("플레이어의 오브젝트가 비어있습니다.");
+            return;
+        }
+        _object = player.Object;
+
+        if (_object.GetComponent<ObjectClass>() != null)
+        {
+            ObjCComponent = _object.GetComponent<ObjectClass>();
+            ObjCComponent.PickUp();
+            Debug.Log(ObjCComponent.name);
+        }
+       
+
+
+        if (ObjCComponent == null)
+        {
+            ObjCComponent = null;
+        }
+        
+    }
+    void CheckOut()
+    {
+        ObjCComponent = null;                
     }
    
 }

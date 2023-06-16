@@ -43,5 +43,10 @@ public class GameManager : SingletonMono<GameManager>
             Hp -= Time.deltaTime;
         }
     }
-    
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
 }

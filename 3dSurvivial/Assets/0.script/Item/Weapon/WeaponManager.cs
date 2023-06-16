@@ -44,18 +44,10 @@ public class WeaponManager : SingletonMono<WeaponManager>
         }
     }
 
-
-   
     public void SetWeaponType(WeaponType weaponType)
     {
         weaponenum = weaponType;
         this.weaponType = weapons[weaponType];
-
-        
-
     }
-    public void AdditemNumber()
-    {
 
-    }
 }

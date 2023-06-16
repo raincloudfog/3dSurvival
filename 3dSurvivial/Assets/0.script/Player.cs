@@ -27,6 +27,13 @@ public class Player : MonoBehaviour
 
     public bool isSit = false; // 기본 앉아있지 않으니 false;
     bool isGround = false;
+    public bool ischeck = false;
+
+    RaycastHit hit; // 오브젝트 확인 용 레이캐스트
+    public GameObject Object; // 오브젝트 확인용
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,30 +53,12 @@ public class Player : MonoBehaviour
         CameraMove();
         CameraMoveY();
         IsGround();
-        check();
+        CheckObject();
         CheckDesk();
     }
 
 
-    /// <summary>
-    /// 오브젝트를 확인하기위한 플레이어의 함수
-    /// </summary>
-    void check() 
-    {
-        Ray ray = new Ray();
-        ray.origin = transform.position;
-        ray.direction = transform.forward;
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, raycastDistace))
-        {
-            if (hit.collider.GetComponent<ObjectClass>() == true)
-            {
-
-            }
-                //hit.collider.GetComponent<ObjectClass>().PickUp();
-        }
-    }
+   
     /// <summary>
     /// 땅인지 확인하기 위한 함수
     /// </summary>
@@ -176,4 +165,24 @@ public class Player : MonoBehaviour
             UIManager.Instance.CreftBoxOff();
         }
     }
+
+
+
+    void CheckObject()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+        {
+            Object = hit.collider.gameObject;
+            ischeck = true;
+        }
+        else
+        {
+            Object = null;
+            ischeck = false;
+        }
+
+       
+        
+    }
+
 }

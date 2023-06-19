@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb373beb2b08cc41b385bfa2d34e92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itme: {fileID: 11400000, guid: 3a58158dae69b964dbd704bf4abf5e7c, type: 2}
+  _item: {fileID: 11400000, guid: 3a58158dae69b964dbd704bf4abf5e7c, type: 2}
   inventory: {fileID: 0}
+  ishit: 0
 --- !u!64 &4031378896676362521
 MeshCollider:
   m_ObjectHideFlags: 0

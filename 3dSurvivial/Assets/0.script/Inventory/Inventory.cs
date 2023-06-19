@@ -39,10 +39,14 @@ public class Inventory : MonoBehaviour
             if(ItemManager.Instance.inventoryActivated == true)
             {
                 OpenInventory();
+                Cursor.visible = true; // 커서 보이기
+                Cursor.lockState = CursorLockMode.None; // 커서 움직이기
             }
             else
             {
                 CloseInventory();
+                Cursor.visible = false; // 커서 숨기기
+                Cursor.lockState = CursorLockMode.Locked; // 커서 잠구기
             }
         }
         if(Input.GetKeyDown(KeyCode.O))

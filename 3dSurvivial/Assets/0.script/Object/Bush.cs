@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bush : ObjectClass
 {
-    [SerializeField]Item plusitem;
+    [SerializeField]Item plusitem; // 이거는 베리를 추가로 얻기 위함
     public override void PickUp()
     {
         Debug.Log("아이템 주움");

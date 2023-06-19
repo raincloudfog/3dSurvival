@@ -50,5 +50,4 @@ public class ButtonManager : SingletonMono<ButtonManager>
         buttons[2].image.color = Color.black;
     }
 
-    
 }

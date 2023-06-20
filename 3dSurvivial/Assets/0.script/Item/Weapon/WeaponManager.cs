@@ -30,6 +30,7 @@ public class WeaponManager : SingletonMono<WeaponManager>
 
     private void FixedUpdate()
     {
+
         if (weaponenum == WeaponType.pickAxe)
         {
             Tools[1].SetActive(false);

@@ -15,7 +15,7 @@ public class SaveData
     public float Hp;
     public float Hunger;
     public float thirst;
-    public List<SlotData> slots = new List<SlotData>();
+    public SlotData slotDatas = new SlotData();
     public bool isnew = false; // 새로 시작 하기 혹은 이어하기 하기 위한 불값
     
 }
@@ -23,9 +23,10 @@ public class SaveData
 [System.Serializable]
 public class SlotData
 {
-    public Image image;
-    public int itemCount;
-    public Item item;
+    public List<Item> item = new List<Item>();
+    public List<Sprite> sprites = new List<Sprite>();
+    public List<int> itemCount = new List<int>();
+    public List<Slot> slots = new List<Slot>();
 }
 //
 public class GameManager : SingletonMono<GameManager>
@@ -66,17 +67,22 @@ public class GameManager : SingletonMono<GameManager>
 
             Cursor.visible = false; // 커서 숨기기
             Cursor.lockState = CursorLockMode.Locked; // 커서 잠구기
+
+            SaveData _saveData = new SaveData();
+            string newStart = File.ReadAllText(path + "newStart");
+
+
+            _saveData = JsonUtility.FromJson<SaveData>(newStart);
+
+            if (_saveData.isnew == false)
+            {
+                Load(); // 로드
+            }
         }
 
-        SaveData _saveData = new SaveData();
-        string newStart = File.ReadAllText(path + "newStart");
+       
 
-
-        _saveData = JsonUtility.FromJson<SaveData>(newStart);
-        if (_saveData.isnew == false)
-        {
-            Load(); // 로드
-        }
+        
 
 
 
@@ -138,11 +144,16 @@ public class GameManager : SingletonMono<GameManager>
         SlotData slotsave = new SlotData();
         for (int i = 0; i < inven.slots.Length; i++)
         {
-            slotsave.item = inven.slots[i].item;
-            slotsave.image = inven.slots[i].itemimage;
-            slotsave.itemCount = inven.slots[i].itemCount;
-            saveData.slots.Add(slotsave);
+            slotsave.item.Add(inven.slots[i].item);
+            slotsave.itemCount.Add(inven.slots[i].itemCount);
+            slotsave.sprites.Add(inven.slots[i].item.itemImage);
+            slotsave.slots.Add(inven.slots[i]);
+            //Debug.Log(slotsave.slots[i].item.itemName);
         }
+        saveData.slotDatas.item = slotsave.item;
+        saveData.slotDatas.itemCount = slotsave.itemCount;
+        saveData.slotDatas.sprites = slotsave.sprites;
+        
         //Debug.Log(slotsave.slots.slots[0].itemimage.sprite.name + " " + slotsave.slots.slots[0].item.name + " " + slotsave.slots.slots[0].itemCount + " 세이브");
         //
 
@@ -172,11 +183,14 @@ public class GameManager : SingletonMono<GameManager>
         WeaponManager.Instance.weaponenum = _saveData.weaponenum;
 
         //0620에 만든 코드
+        //Debug.Log(_saveData.slots[0].item.name); 
         for (int i = 0; i < inven.slots.Length; i++)
         {
-            inven.slots[i].item = _saveData.slots[i].item;
-            inven.slots[i].itemCount = _saveData.slots[i].itemCount;
-            inven.slots[i].itemimage = _saveData.slots[i].image;
+            inven.slots[i] = _saveData.slotDatas.slots[i];
+            inven.slots[i].item = _saveData.slotDatas.item[i];
+            inven.slots[i].itemCount = _saveData.slotDatas.itemCount[i];
+            inven.slots[i].itemimage.sprite = _saveData.slotDatas.sprites[i];
+            
         }
         
         //

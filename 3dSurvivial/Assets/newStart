@@ -1,1 +1,1 @@
-{"weaponenum":2,"playerpos":{"x":0.0,"y":0.0,"z":0.0},"Hp":0.0,"Hunger":0.0,"thirst":0.0,"slots":[],"isnew":false}
+{"weaponenum":2,"playerpos":{"x":0.0,"y":0.0,"z":0.0},"Hp":0.0,"Hunger":0.0,"thirst":0.0,"slotDatas":{"item":[],"sprites":[],"itemCount":[],"slots":[]},"isnew":true}

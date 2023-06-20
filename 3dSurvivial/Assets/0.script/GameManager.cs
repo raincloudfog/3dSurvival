@@ -15,11 +15,19 @@ public class SaveData
     public float Hp;
     public float Hunger;
     public float thirst;
-    public List<Slot> slots = new List<Slot>();
+    public List<SlotData> slots = new List<SlotData>();
     public bool isnew = false; // 새로 시작 하기 혹은 이어하기 하기 위한 불값
     
 }
-
+//0620에 만듬
+[System.Serializable]
+public class SlotData
+{
+    public Image image;
+    public int itemCount;
+    public Item item;
+}
+//
 public class GameManager : SingletonMono<GameManager>
 {
 
@@ -126,6 +134,20 @@ public class GameManager : SingletonMono<GameManager>
 
     public void save()
     {
+        //0620날 만든 코드
+        SlotData slotsave = new SlotData();
+        for (int i = 0; i < inven.slots.Length; i++)
+        {
+            slotsave.item = inven.slots[i].item;
+            slotsave.image = inven.slots[i].itemimage;
+            slotsave.itemCount = inven.slots[i].itemCount;
+            saveData.slots.Add(slotsave);
+        }
+        //Debug.Log(slotsave.slots.slots[0].itemimage.sprite.name + " " + slotsave.slots.slots[0].item.name + " " + slotsave.slots.slots[0].itemCount + " 세이브");
+        //
+
+
+
         saveData.Hp = Hp; // 세이브에 현재 체력 넣어쥐
         saveData.Hunger = Hunger; // 세이브에 현재 배고픔 넣어주기
         saveData.thirst = thirst; // 세이브에 현재 목마름 넣어주기
@@ -148,6 +170,16 @@ public class GameManager : SingletonMono<GameManager>
         Hunger = _saveData.Hunger;
         thirst = _saveData.thirst;
         WeaponManager.Instance.weaponenum = _saveData.weaponenum;
+
+        //0620에 만든 코드
+        for (int i = 0; i < inven.slots.Length; i++)
+        {
+            inven.slots[i].item = _saveData.slots[i].item;
+            inven.slots[i].itemCount = _saveData.slots[i].itemCount;
+            inven.slots[i].itemimage = _saveData.slots[i].image;
+        }
+        
+        //
 
 
         player.transform.position = _saveData.playerpos;

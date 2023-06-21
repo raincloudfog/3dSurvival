@@ -52,7 +52,7 @@ public class Hands : MonoBehaviour
     {
         if(player.Object == null)
         {
-            Debug.Log("플레이어의 오브젝트가 비어있습니다.");
+            //Debug.Log("플레이어의 오브젝트가 비어있습니다.");
             return;
         }
         _object = player.Object;

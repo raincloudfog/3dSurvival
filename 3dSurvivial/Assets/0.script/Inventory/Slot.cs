@@ -13,11 +13,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public int itemCount; // 획득한 아이템 개수
     public Image itemimage; // 아이템 이미지
 
-    [SerializeField]
-    private TMP_Text text_Count; // 텍스트의 글씨
+    public TMP_Text text_Count; // 텍스트의 글씨 //세이브에서 쓰일거라 퍼블릭으로 수정
 
-    [SerializeField]
-    private GameObject CountImage; // 
+    
+    public GameObject CountImage; // 
 
     public void SetItemCountTxt()
     {
@@ -27,7 +26,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     /// 이미지 투명도 조절
     /// </summary>
     /// <param name="_alpha"></param>
-    private void SetColor(float _alpha)
+    public void SetColor(float _alpha)
     {
         Color color = itemimage.color; // 아이템이 비어도 투명하게 보이도록
         color.a = _alpha; // 아이템 알파 값 변경

@@ -31,19 +31,16 @@ public class ObjectPool : SingletonMono<ObjectPool>
                 GameObject obj = Instantiate(objects[0].gameObject, transform);
                 obj.SetActive(false);
                 Objectspool.Enqueue(obj.GetComponent<ObjectClass>());
+
+                GameObject obj2 = Instantiate(objects[1].gameObject, transform);
+                obj2.SetActive(false);
+                Objectspool.Enqueue(obj2.GetComponent<ObjectClass>());
+
+                GameObject obj3 = Instantiate(objects[2].gameObject, transform);
+                obj3.SetActive(false);
+                Objectspool.Enqueue(obj3.GetComponent<ObjectClass>());
             }
-            for (int i = 0; i < 50; i++)
-            {
-                GameObject obj = Instantiate(objects[1].gameObject, transform);
-                obj.SetActive(false);
-                Objectspool.Enqueue(obj.GetComponent<ObjectClass>());
-            }
-            for (int i = 0; i < 50; i++)
-            {
-                GameObject obj = Instantiate(objects[2].gameObject, transform);
-                obj.SetActive(false);
-                Objectspool.Enqueue(obj.GetComponent<ObjectClass>());
-            }
+           
         }
         GameObject newobj = Objectspool.Dequeue().gameObject;
         newobj.SetActive(true);

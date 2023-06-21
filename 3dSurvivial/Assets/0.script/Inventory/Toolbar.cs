@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Toolbar : MonoBehaviour
 {
-    [SerializeField] Slot[] slots;
+    public Slot[] slots;
 
     /*Dictionary<int, KeyCode> numbers = new Dictionary<int, KeyCode>
     {
@@ -20,6 +20,7 @@ public class Toolbar : MonoBehaviour
         { 9, KeyCode.Alpha0}
 
     };*/
+
 
     // Start is called before the first frame update
     void Start()

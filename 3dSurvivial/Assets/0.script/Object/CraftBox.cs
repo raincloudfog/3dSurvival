@@ -26,14 +26,14 @@ public class CraftBox : MonoBehaviour
 
     //
 
-    [SerializeField] Slot[] slots; // 조합식 할곳
+    public Slot[] slots; // 조합식 할곳
     [SerializeField] Inventory Inventory;
     [SerializeField] Item[] items;
     [SerializeField] Button creftButton;
 
-    private void Awake()
+    private void Start()
     {
-        slots = GetComponentsInChildren<Slot>();
+        //slots = GetComponentsInChildren<Slot>();
 
 
         int k = 0;
@@ -50,11 +50,7 @@ public class CraftBox : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        //slots = GetComponentsInChildren<Slot>();
-        
-    }
+    
 
     
 

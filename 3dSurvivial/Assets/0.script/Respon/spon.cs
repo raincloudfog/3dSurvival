@@ -21,7 +21,7 @@ public class spon : MonoBehaviour
         
         for (int i = 0; i <val ; i++)
         {
-            Debug.Log(ObjectPool.Instance.Objectspool.Count);
+            //Debug.Log(ObjectPool.Instance.Objectspool.Count);
             GameObject newobj = ObjectPool.Instance.ObjectCreate();
             newobj.transform.position = Return_randomPosition();
         }

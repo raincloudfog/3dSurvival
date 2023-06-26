@@ -18,7 +18,28 @@ public class Player : MonoBehaviour
     float x, z;
     [SerializeField]
     float Originspeed = 5;
+    
     float speed; // 플레이어 이동 속도
+    // 6월 26일 이동속도 확인 하는 코드
+    public float OriGinSpeed
+    {
+        get
+        {
+            return Originspeed;
+        }
+    }
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = value;
+        }
+    }
+    //
     float rotationSpeed = 5f; // 캐릭터 회전 속도
     float JumpPower = 5f;
     float camX, camY;
@@ -41,7 +62,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         cam = Camera.main;
         speed = Originspeed;
-        InputManager.Instance.AddFunction(KeyCode.X, Sit);
+        //InputManager.Instance.AddFunction(KeyCode.X, Sit);
         InputManager.Instance.AddFunction(KeyCode.LeftShift, RunOn);
         InputManager.Instance.AddFunction(KeyCode.Space, Jump);        
     }
@@ -85,7 +106,7 @@ public class Player : MonoBehaviour
     }
     void CameraMove() // 캐릭터 마우스 방향으로 캐릭터 회전값 변경
     {
-        if (ItemManager.Instance.inventoryActivated == false)
+        if (ItemManager.Instance.inventoryActivated == false || GameManager.Instance.dontmovemouse == true)
             return;
         camX = Input.GetAxisRaw("Mouse X");                                
         transform.Rotate(Vector3.up,  camX * rotationSpeed, Space.World);
@@ -97,7 +118,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void CameraMoveY()
     {
-        if (ItemManager.Instance.inventoryActivated == false)
+        if (ItemManager.Instance.inventoryActivated == false || GameManager.Instance.dontmovemouse == true)
             return;
 
         camY = Input.GetAxisRaw("Mouse Y");

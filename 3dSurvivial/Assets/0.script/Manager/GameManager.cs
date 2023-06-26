@@ -19,6 +19,7 @@ public class SaveData
     public SlotData Toolbarslots = new SlotData();
     public SlotData craftSlots = new SlotData();
     public bool isnew = false; // 새로 시작 하기 혹은 이어하기 하기 위한 불값
+    public Vector3 Lightrotate; // 광원의 로테이트;
     
 }
 //0620에 만듬
@@ -40,7 +41,7 @@ public class GameManager : SingletonMono<GameManager>
     public float  Hp = 100; // 플레이어 체력 // int로 하려했으나 체력 감소가 너무 빠른관계로 float로 변경
     public float Hunger = 100; // 플레이어 허기
     public float thirst = 100; // 플레이어 갈증
-
+    public bool dontmovemouse = false; // 마우스 못움직이게 하기
 
     [SerializeField] GameObject GameStop; // 일시 정지 창
     SaveData saveData = new SaveData();
@@ -52,6 +53,8 @@ public class GameManager : SingletonMono<GameManager>
     [SerializeField] Player player;
 
     [SerializeField] Image[] stats; // 피 음식 수분량 이미지
+
+    [SerializeField] GameObject Sun; //태양
 
     string path;
     string filename;
@@ -76,7 +79,7 @@ public class GameManager : SingletonMono<GameManager>
 
             SaveData _saveData = new SaveData();
             string newStart = File.ReadAllText(path + "newStart");
-
+            Time.timeScale = 1f;
 
             _saveData = JsonUtility.FromJson<SaveData>(newStart);
 
@@ -113,6 +116,7 @@ public class GameManager : SingletonMono<GameManager>
             Cursor.visible = true; // 커서 보이기
             Cursor.lockState = CursorLockMode.None;
             GameStop.SetActive(true);
+            dontmovemouse = true;
             Time.timeScale = 0;
         }
     }
@@ -199,11 +203,16 @@ public class GameManager : SingletonMono<GameManager>
         saveData.thirst = thirst; // 세이브에 현재 목마름 넣어주기
         saveData.playerpos = player.transform.position; // 세이브에 현재 플레이어 위치 저장해주기
         saveData.weaponenum = WeaponManager.Instance.weaponenum;
-        
+        saveData.Lightrotate = Sun.transform.eulerAngles;
 
         string data = JsonUtility.ToJson(saveData);
 
         File.WriteAllText(path + filename, data); // 파일주소, 저장할 제이슨 값
+
+        //6월 26일
+        Debug.Log(player.OriGinSpeed);
+        Debug.Log(player.Speed);
+        //
     }
 
     public void Load()
@@ -212,10 +221,10 @@ public class GameManager : SingletonMono<GameManager>
         string _data = File.ReadAllText(path + filename); // 파일을 읽어옴
         _saveData = JsonUtility.FromJson<SaveData>(_data); // 그릇에다가 그릇에 맞는 음식(스트링)을 넣어줌
 
-        Hp = _saveData.Hp;
-        Hunger = _saveData.Hunger;
-        thirst = _saveData.thirst;
-        WeaponManager.Instance.weaponenum = _saveData.weaponenum;
+        Hp = _saveData.Hp; // 체력 가져오기
+        Hunger = _saveData.Hunger; // 허기 가져오기
+        thirst = _saveData.thirst; // 목마름 가져오기
+        WeaponManager.Instance.weaponenum = _saveData.weaponenum; // 무기 데이터 가져오기
 
         //0620에 만든 코드
         //Debug.Log(_saveData.slots[0].item.name); 
@@ -228,7 +237,7 @@ public class GameManager : SingletonMono<GameManager>
             //0621에 만든코드 인벤토리 저장 성공.
             if(inven.slots[i].item != null)
             {
-                inven.slots[i].SetColor(1);
+                inven.slots[i].SetColor(1); // 이이미지 색깔을켜줘야됨.
                 if (inven.slots[i].item.itemType != ItemType.Equipment) // 만약 아이템의 타입이 장비타입이 아니면
                 {
                     inven.slots[i].CountImage.SetActive(true); // 숫자이미지를 켜주고
@@ -244,7 +253,7 @@ public class GameManager : SingletonMono<GameManager>
         }
 
         //
-        //0621에 만든 코드
+        //0621에 만든 코드 // 툴바 아이템 가져오기
         for (int i = 0; i < toolbar.slots.Length; i++)
         {
             toolbar.slots[i].item = _saveData.Toolbarslots.item[i];
@@ -266,7 +275,7 @@ public class GameManager : SingletonMono<GameManager>
                 }
             }
         }
-
+        // 조학식에 아이템 넣어놨으면 가져오기
         for (int i = 0; i < craftBox.slots.Length; i++)
         {
             craftBox.slots[i].item = _saveData.craftSlots.item[i];
@@ -290,8 +299,19 @@ public class GameManager : SingletonMono<GameManager>
         }
         //
 
+        //6월 26일
+        Debug.Log(player.OriGinSpeed);
+        Debug.Log(player.Speed);
+        player.Speed = 5;
+        statsFillmount(); //  로드했을때 스탯들 이미지 변하는거 표시하기
+        Sun.transform.eulerAngles = _saveData.Lightrotate;
+        Time.timeScale = 1;
+        //
+
 
         player.transform.position = _saveData.playerpos;
+        
+       
     }
 
     public void Load2()

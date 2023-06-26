@@ -18,6 +18,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         GameStop.SetActive(false);
         Cursor.visible = false; // 커서 숨기기
         Cursor.lockState = CursorLockMode.Locked; // 커서 잠구기
+        GameManager.Instance.dontmovemouse = false;
         Time.timeScale = 1;
     }
 

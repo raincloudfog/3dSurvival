@@ -80,6 +80,18 @@ public class CraftBox : MonoBehaviour
                 Axe();
             }
         }
+        else if (slots[1].item != null && slots[3].item != null && slots[4].item != null && slots[5].item != null)
+        {
+            if (slots[1].item.itemName == ItemName.Bush &&
+            slots[3].item.itemName == ItemName.Wood &&
+            slots[4].item.itemName == ItemName.Wood &&
+            slots[5].item.itemName == ItemName.Wood)
+            {
+                Debug.Log("모닥불 조햡 가능");
+                BoneFire();
+            }
+        }
+
     }
 
     public void PickAxe()
@@ -103,6 +115,15 @@ public class CraftBox : MonoBehaviour
         slots[4].AddSlotcount(-1);
         slots[7].AddSlotcount(-1);
         Inventory.AcquireItem(items[1], 1);
+    }
+
+    public void BoneFire()
+    {
+        slots[1].AddSlotcount(-1);
+        slots[3].AddSlotcount(-1);
+        slots[4].AddSlotcount(-1);
+        slots[5].AddSlotcount(-1);
+        Inventory.AcquireItem(items[2], 1);
     }
 
     void CheckItemName()

@@ -23,6 +23,7 @@ public enum ItemName
     Berry,
     PickAxe,
     Axe,
+    BoneFire
 
 
 }

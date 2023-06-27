@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class Toolbar : MonoBehaviour
 {
-    public Slot[] slots;
+    public Slot[] slots; // 툴바 슬롯들
+    [SerializeField] Transform PlayerTF; // 플레이어위치
+
+    [SerializeField] Craft[] craft;//건설될 것들
+
+    GameObject Preview; // 미리보기 프리팹 담을 변수
+    
+    [SerializeField] bool isCraft = false; // 건설 아이템을 들고 있다면
+
+    //Raycast
+    private RaycastHit hitInfo;
+    [SerializeField]
+    private LayerMask layerMask;
+    [SerializeField]
+    private float range;
+    Ray ray;
+
+    private Vector3 ScreenCenter; // 스크린에 센터
 
     /*Dictionary<int, KeyCode> numbers = new Dictionary<int, KeyCode>
     {
@@ -21,19 +38,60 @@ public class Toolbar : MonoBehaviour
 
     };*/
 
+    
 
     // Start is called before the first frame update
     void Start()
     {
         //slots = GetComponentsInChildren<Slot>();
-       
+        ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
+        
     }
 
     // Update is called once per frame
     void Update()
     { 
         Inputtoolbar();
+
+        if (isCraft == true)
+        {
+            
+            PreviewPositionUpdate();
+            if(Input.GetMouseButtonDown(0))
+            {
+                if(Preview.GetComponent<BoneFirePreview>().isBuildeable())
+                {
+                    GameObject obj = Instantiate(craft[0].Prefab, Preview.transform);
+                    obj.transform.SetParent(null);
+                    Destroy(Preview);
+                    isCraft = false;
+                }
+                
+            }
+           
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        
+    }
+
+    void PreviewPositionUpdate()
+    {
+        ray = Camera.main.ScreenPointToRay(ScreenCenter);
+        if (Physics.Raycast(ray, out hitInfo, range, layerMask))
+        {
+            
+            if(hitInfo.transform != null)
+            {
+                Debug.Log("감지됨.");
+                Vector3 _location = hitInfo.point;
+                Preview.transform.position = _location;
+            }
+        }
+    }
+
     /// <summary>
     /// 툴바에 아이템 사용
     /// </summary>
@@ -69,6 +127,7 @@ public class Toolbar : MonoBehaviour
     /// 장비 장착
     /// </summary>
     /// <param name="key"></param>
+    /// 
     void Equip(string key)
     {
         int number;
@@ -95,6 +154,7 @@ public class Toolbar : MonoBehaviour
                 return;
             }
             WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.pickAxe;
+            isCraft = false;
 
         }
         else if (slots[number-1].item.itemName == ItemName.Axe) // 만약 슬롯칸에 도끼가 있다면 무기를 활성화해서 도끼를 장착해줍니다.
@@ -105,6 +165,17 @@ public class Toolbar : MonoBehaviour
                 return;
             }
             WeaponManager.Instance.weaponenum = WeaponManager.WeaponType.Axe;
+            isCraft = false;
+        }
+        else if(slots[number -1].item.itemName == ItemName.BoneFire)
+        {
+            isCraft = true;
+            Preview = Instantiate(craft[0].Prefabview,PlayerTF.position + PlayerTF.forward, Quaternion.identity);
+            slots[number - 1].SetSlotcount(0);
+        }
+        else
+        {
+            //isCraft = false;
         }
         
     }

@@ -39,6 +39,14 @@ public class ObjectPool : SingletonMono<ObjectPool>
                 GameObject obj3 = Instantiate(objects[2].gameObject, transform);
                 obj3.SetActive(false);
                 Objectspool.Enqueue(obj3.GetComponent<ObjectClass>());
+
+                GameObject obj4 = Instantiate(objects[3].gameObject, transform);
+                obj3.SetActive(false);
+                Objectspool.Enqueue(obj3.GetComponent<ObjectClass>());
+
+                GameObject obj5 = Instantiate(objects[4].gameObject, transform);
+                obj3.SetActive(false);
+                Objectspool.Enqueue(obj3.GetComponent<ObjectClass>());
             }
            
         }

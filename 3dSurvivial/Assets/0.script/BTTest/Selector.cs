@@ -4,36 +4,37 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public class Selector : Node
+
+
+    /// <summary>
+    /// 트리에서 or역할을 한다.
+    /// 하나라도 Running 이거나 Success라면 바로 반환 시켜준다.
+    /// 
+    /// </summary>
+    public class SelectorNode : Node
     {
-        public Selector() : base() { }
-        public Selector(List<Node> children) : base(children) { }
+        public SelectorNode() : base() { } // 부모 클래스와 똑같은 생성자 
+        public SelectorNode(List<Node> children) : base(children) { } // 부모클래스와 똑같은 생성자와 매개변수
 
-        public override NodeState Evalaute()
+        public override NodeState Evaluate()
         {
-            
-
-            foreach (Node node in children)
+            foreach (Node node in childrenNode)
             {
-                switch (node.Evalaute())
+                switch (node.Evaluate())
                 {
                     case NodeState.RUNNING:
-                        state = NodeState.RUNNING;
-                        return state;
-                    case NodeState.SUCCES:
-                        state = NodeState.SUCCES;
-                        return state;
-                    case NodeState.FAIL:
-                        state = NodeState.FAIL;
+                        return state = NodeState.RUNNING;
+                    case NodeState.FAILURE:
                         continue;
-
+                    case NodeState.SUCCESS:
+                        return NodeState.SUCCESS;
+                    case NodeState.END:
                     default:
                         continue;
                 }
             }
 
-            state = NodeState.FAIL;
-            return state;
+            return state = NodeState.FAILURE;
         }
     }
 }

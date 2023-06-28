@@ -4,19 +4,33 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public abstract class tree : MonoBehaviour
+
+    public abstract class Tree : MonoBehaviour
     {
-        private Node _root = null;
-        protected void Start()
+        private Node rootNode = null; // 트리는 노드를 가지고 있는 하나의 나무 가지인거같다.
+
+        protected virtual void Start()
         {
-            _root = SetupTree();
+            rootNode = SetupBehaviorTree();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            if (_root != null)
-                _root.Evalaute();
+            //만약 루트노드가 있다면
+            //루트 노드의 자식을 확인
+            if (rootNode != null)
+            {
+                //Debug.Log("일단 null은 아님");
+                rootNode.Evaluate();
+                //Debug.Log(rootNode);
+            }
+            else
+            {
+               // Debug.Log("null임");
+                return;
+            }
         }
-        protected abstract Node SetupTree();
+        protected abstract Node SetupBehaviorTree();
+        
     }
 }

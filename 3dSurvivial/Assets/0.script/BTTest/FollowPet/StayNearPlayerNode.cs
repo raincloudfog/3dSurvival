@@ -16,7 +16,7 @@ public class StayNearPlayerNode : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log("가만히 있음");
+        //Debug.Log("가만히 있음");
         return state = NodeState.RUNNING; // 노드가 실행중이라고 알려줌.
     }
 

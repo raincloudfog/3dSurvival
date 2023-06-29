@@ -9,8 +9,10 @@ public class PigBT : BehaviorTree.Tree
     [SerializeField]
     Animal orgpig; // µÅÁö
     [SerializeField]
-    Animal pig; // µÅÁö
+    public Animal pig; // µÅÁö
     Animator anim;
+
+    //[SerializeField]bool ishit = false;
 
     protected override void Start()
     {
@@ -31,13 +33,15 @@ public class PigBT : BehaviorTree.Tree
         {
             new SequenceNode(new List<Node>
             {
-                new PigHit(pig),
+                new PigHit(pig, transform),
                 new PigRun(transform, pig)
             }),
+            new SequenceNode(new List<Node>
+            {
+                new PIgHunger(pig),
+                new PigEat(pig,anim)
+            }),
             new PigMove(transform, pig),
-            new PIgHunger(pig,anim)
-
-
         });
 
         return root;

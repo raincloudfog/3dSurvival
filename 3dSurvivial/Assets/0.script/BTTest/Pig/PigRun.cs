@@ -4,10 +4,11 @@ using UnityEngine;
 using BehaviorTree;
 public class PigRun : Node
 {
-    private static int playerLayerMask = 1 << LayerMask.NameToLayer("Player");
+    
     Transform transform;
     float speed;
-
+    
+    float timer;
     public PigRun(Transform transform, Animal animal)
     {
         this.transform = transform;
@@ -16,19 +17,10 @@ public class PigRun : Node
 
     public override NodeState Evaluate()
     {
-
-        var collider = Physics.OverlapSphere(transform.position, 5.0f, playerLayerMask);
-
-
-        if (collider.Length >= 5)
-        {
-            return state = NodeState.FAILURE;
-        }
-        else if (collider.Length <= 5)
-        {
-            transform.Translate(-transform.forward * speed, Space.World);
-        }
+        transform.position = Vector3.Lerp(transform.position, transform.forward * speed, Time.deltaTime);
 
         return NodeState.RUNNING;
+        
+        
     }
 }

@@ -8,6 +8,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/Animal")]
 public class Animal : ScriptableObject
 {
+    //동물의 원래 체력
+    public int maxHp;
+    //동물이 맞았는지
+    public bool ishit;
     //동물의 체력
     public int Hp;
     //동물의 허기

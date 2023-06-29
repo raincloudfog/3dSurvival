@@ -6,11 +6,12 @@ using BehaviorTree;
 
 public class PigMove : Node
 {
-    private static int playerLayerMask = 1 << LayerMask.NameToLayer("Player");
     Transform transform; 
     float speed; // 이동속도
     float timer; // 타이머
     Animal pig;
+    Vector3 newvec; // 이동 거리
+    Quaternion NewRotate; // 이동 방향
 
     public PigMove(Transform transform, Animal animal)
     {
@@ -24,23 +25,21 @@ public class PigMove : Node
         
         //Debug.Log(pig.Hunger);
         timer += Time.deltaTime;
-        if (pig.Hunger <= 5)
-        {
-            Debug.Log("돼지 배고프다.!");
-            timer = 0;
-            return NodeState.FAILURE;
-        }
+        
 
-        else if (timer > 2)
+        if (timer > 2)
         {
             Debug.Log("돼지 움직인다!");
             timer = 0;
-            Vector3 newvec = new Vector3(Random.Range(0, 5), 0, Random.Range(0, 5));
-            transform.position = Vector3.Lerp(transform.position, newvec , speed * Time.deltaTime);
-            
+
+            NewRotate = new Quaternion(0, Random.Range(0, 360), 0,0);
         }
 
-        
+        Vector3 move = Vector3.Lerp(transform.position, transform.forward, speed * Time.deltaTime);
+        Debug.Log(move);
+        transform.position = move;
+        transform.rotation = Quaternion.Slerp(transform.rotation, NewRotate, Time.deltaTime);
+
 
         return NodeState.RUNNING; 
     }

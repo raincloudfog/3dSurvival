@@ -5,23 +5,21 @@ using BehaviorTree;
 public class PIgHunger : Node
 {
     Animal pig;
-    Animator anim;
+    
 
-    public PIgHunger(Animal animal, Animator anim)
+    public PIgHunger(Animal animal)
     {
         pig = animal;
-        this.anim = anim;
+        
     }
 
     public override NodeState Evaluate()
     {
-        if(pig.Hunger >= 20)
+        if (pig.Hunger <= 20)
         {
-            Debug.Log("¹ä´Ù¸ÔÀ½");
-            return NodeState.FAILURE;
+            Debug.Log("µÅÁö ¹è°íÇÁ´Ù.!");            
+            return NodeState.SUCCESS;
         }
-        pig.Hunger += 5;
-        Debug.Log("¹ä¸Ô´ÂÁß");
-        return NodeState.RUNNING;
+        return NodeState.FAILURE;
     }
 }

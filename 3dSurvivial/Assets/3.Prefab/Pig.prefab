@@ -597,6 +597,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4263513942636942873}
   - component: {fileID: 3221006508317408047}
+  - component: {fileID: 82477677020730656}
+  - component: {fileID: 82477677020730652}
+  - component: {fileID: 82477677020730653}
   m_Layer: 0
   m_Name: Pig
   m_TagString: Untagged
@@ -641,6 +644,55 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &82477677020730656
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869485881167805273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.951416, y: 1.3236685, z: 1.4216919}
+  m_Center: {x: -3.6876526, y: -0.4540496, z: 1.38031}
+--- !u!95 &82477677020730652
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869485881167805273}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b628bc1769088244b2d3f50a4981539, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &82477677020730653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869485881167805273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06f1eb2f9fd5ea4680a9eedd645bce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orgpig: {fileID: 11400000, guid: 858f0a427557c074e8d35f1a387742e4, type: 2}
+  pig: {fileID: 0}
+  rigid: {fileID: 3221006508317408047}
 --- !u!1 &7543414699979629955
 GameObject:
   m_ObjectHideFlags: 0

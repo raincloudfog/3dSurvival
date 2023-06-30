@@ -12,12 +12,18 @@ public class PigMove : Node
     Animal pig;
     Vector3 newvec; // 이동 거리
     Quaternion NewRotate; // 이동 방향
+    Rigidbody rigid;
 
-    public PigMove(Transform transform, Animal animal)
+    bool isturn = false; // 방향전환
+
+
+    public PigMove(Transform transform, Animal animal, Rigidbody rigid)
     {
         this.transform = transform;
         speed = animal.speed;
         this.pig = animal;
+        this.rigid = rigid;
+        isturn = true;
     }
 
     public override NodeState Evaluate()
@@ -27,18 +33,22 @@ public class PigMove : Node
         timer += Time.deltaTime;
         
 
-        if (timer > 2)
+        if (timer > 2 && isturn == true)
         {
             Debug.Log("돼지 움직인다!");
             timer = 0;
 
-            NewRotate = new Quaternion(0, Random.Range(0, 360), 0,0);
+            NewRotate = new Quaternion(0, Random.Range(0, 360), 0, 0);
+            transform.rotation *= Quaternion.Slerp(transform.rotation, NewRotate, Time.deltaTime);
+            //rigid.velocity = Vector3.zero;
         }
+        
 
-        Vector3 move = Vector3.Lerp(transform.position, transform.forward, speed * Time.deltaTime);
-        Debug.Log(move);
-        transform.position = move;
-        transform.rotation = Quaternion.Slerp(transform.rotation, NewRotate, Time.deltaTime);
+        
+        Debug.Log("돼지 움직이는 중");
+        //rigid.velocity = transform.forward * speed* Time.deltaTime;
+        transform.position += transform.right * speed * Time.deltaTime;
+        
 
 
         return NodeState.RUNNING; 

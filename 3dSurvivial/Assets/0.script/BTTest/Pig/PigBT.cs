@@ -11,6 +11,8 @@ public class PigBT : BehaviorTree.Tree
     [SerializeField]
     public Animal pig; // µÅÁö
     Animator anim;
+    [SerializeField]
+    Rigidbody rigid;
 
     //[SerializeField]bool ishit = false;
 
@@ -34,14 +36,14 @@ public class PigBT : BehaviorTree.Tree
             new SequenceNode(new List<Node>
             {
                 new PigHit(pig, transform),
-                new PigRun(transform, pig)
+                new PigRun(transform, pig, rigid)
             }),
             new SequenceNode(new List<Node>
             {
                 new PIgHunger(pig),
                 new PigEat(pig,anim)
             }),
-            new PigMove(transform, pig),
+            new PigMove(transform, pig, rigid),
         });
 
         return root;

@@ -23,9 +23,12 @@ public class Animal : ScriptableObject
 
     public Animal(Animal animal)
     {
+        maxHp = animal.maxHp;
         Hp = animal.Hp;
         Hunger = animal.Hunger;
         speed = animal.speed;
         Runspeed = animal.Runspeed;
     }
+
+
 }

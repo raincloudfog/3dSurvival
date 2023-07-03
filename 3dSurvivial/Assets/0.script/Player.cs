@@ -173,10 +173,7 @@ public class Player : MonoBehaviour
         {
             if(hit.collider.CompareTag("Desk") == true)
             {
-
-
                 InputManager.Instance.AddFunction(KeyCode.E, UIManager.Instance.CreftBoxOn);
-
             }
             
         }
@@ -191,7 +188,7 @@ public class Player : MonoBehaviour
 
     void CheckObject()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 15f)) // 박스로 바꿀 것
         {
             Object = hit.collider.gameObject;
             ischeck = true;

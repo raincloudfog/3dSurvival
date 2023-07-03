@@ -7,8 +7,9 @@ public class Hands : MonoBehaviour
     Animator anim; // 애니메이션    
     [SerializeField] Player player;
     [SerializeField] ObjectClass ObjCComponent;
-    
+    [SerializeField] PigBT Pig;
     [SerializeField]public GameObject _object; // 플레이어한태 받은 오브젝트
+    float timer = 0;
     private void Awake()
     {
 
@@ -50,6 +51,7 @@ public class Hands : MonoBehaviour
     /// </summary>
     void CheckObject()
     {
+        timer += Time.deltaTime;
         if(player.Object == null)
         {
             //Debug.Log("플레이어의 오브젝트가 비어있습니다.");
@@ -61,7 +63,18 @@ public class Hands : MonoBehaviour
         {
             ObjCComponent = _object.GetComponent<ObjectClass>();
             ObjCComponent.PickUp();
-            Debug.Log(ObjCComponent.name);
+            //Debug.Log(ObjCComponent.name);
+        }
+        else if(_object.GetComponent<PigBT>() == true)
+        {
+            Pig = _object.GetComponent<PigBT>();
+            if(timer > 2)
+            {
+                timer = 0;
+                Pig.pig.Hp -= 1;
+            }
+            
+            //Debug.Log(Pig.pig.Hp);
         }
        
 

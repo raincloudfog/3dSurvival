@@ -15,6 +15,7 @@ namespace BehaviorTree
     }
     public abstract class Node // 노드 부모 클래스
     {
+        //protected NowNodeState nowNodeState; // 현재 상태 확인 하는 노드
         protected NodeState state; // 노드 스테이트 가지고 있음 // 이노드의 상태
         public Node parentNode; // 부모 노드를 가지고 있음 // 나의 이전 상태(위의 상태) // 만약 실패하면 다시 위로 올라갈수 있게
         protected List<Node> childrenNode = new List<Node>(); // 가지고 있는 자식노드들 // 

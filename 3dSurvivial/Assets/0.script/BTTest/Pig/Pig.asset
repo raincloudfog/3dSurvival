@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c941fa4f161b6fd4b82e3cf6a9a9064c, type: 3}
   m_Name: Pig
   m_EditorClassIdentifier: 
+  maxHp: 5
+  ishit: 0
   Hp: 5
   Hunger: 10
   speed: 3

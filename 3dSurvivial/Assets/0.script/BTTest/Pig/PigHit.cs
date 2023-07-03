@@ -17,18 +17,13 @@ public class PigHit : Node
     }
     
     public override NodeState Evaluate()
-    {
-        var collider = Physics.OverlapSphere(transform.position, 5.0f, playerLayerMask);
-
-
-        if (CurHp > pig.Hp)
+    {        
+        if (pig.maxHp > pig.Hp)
         {
-            Debug.Log("¸Â¾ÒÀ½");
-            CurHp = pig.Hp;
-            Debug.Log(CurHp + " " + pig.Hp);
+            //timer = 0;
+            
             return NodeState.SUCCESS;
         }
-
         return NodeState.FAILURE;
     }   
 }

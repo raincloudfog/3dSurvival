@@ -7,9 +7,9 @@ public class PigRun : Node
     Rigidbody rigid;
     Transform transform;
     float speed;
-
+    float timer = 0; 
     
-    float timer;
+    
     public PigRun(Transform transform, Animal animal, Rigidbody rigid)
     {
         this.transform = transform;
@@ -19,9 +19,19 @@ public class PigRun : Node
 
     public override NodeState Evaluate()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
-        rigid.AddForce(transform.forward * speed);
+        Debug.Log("달려!!");
+        timer += Time.deltaTime;
+        if(timer > 2)
+        {
+            timer = 0;
+            Debug.Log("달리기는 끝난다.");
+            rigid.velocity = Vector3.zero;
+            return NodeState.FAILURE;
+        }
 
+        //transform.position += transform.forward * speed * Time.deltaTime;
+        //rigid.AddForce(transform.forward * speed);
+        rigid.velocity = transform.right * speed;
         return NodeState.RUNNING;
         
         

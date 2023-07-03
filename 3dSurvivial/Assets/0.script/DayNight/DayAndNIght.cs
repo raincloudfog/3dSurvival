@@ -16,7 +16,7 @@ public class DayAndNIght : MonoBehaviour
 
     private void Awake()
     {
-        secondPerRealTimeSecond = 100;
+        secondPerRealTimeSecond = 0.01f;
         dayFogDensity = RenderSettings.fogDensity;
         fogdensityCalc = 0.5f;
         NightFogdensity = 0.2f;

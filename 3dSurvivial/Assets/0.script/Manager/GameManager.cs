@@ -50,7 +50,7 @@ public class GameManager : SingletonMono<GameManager>
     Toolbar toolbar;
     [SerializeField] Inventory inven;
 
-    [SerializeField] Player player;
+    public Player player;
 
     [SerializeField] Image[] stats; // 피 음식 수분량 이미지
 

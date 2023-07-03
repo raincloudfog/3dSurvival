@@ -4021,7 +4021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34026122af2e4a246aa27578079a787f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondPerRealTimeSecond: 1
+  secondPerRealTimeSecond: 0.01
   fogdensityCalc: 0
   NightFogdensity: 0
 --- !u!1001 &727047496
@@ -9669,25 +9669,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 82477677020730652, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2301603323118102370, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3221006508317408047, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3221006508317408047, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464108003308334010, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4263513942636942873, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
       propertyPath: m_RootOrder
@@ -9736,14 +9720,6 @@ PrefabInstance:
     - target: {fileID: 5869485881167805273, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
       propertyPath: m_Name
       value: Pig
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963099640073788082, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6963979506087980404, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f37f6e07a4b9e041b7f6920423f1d38, type: 3}

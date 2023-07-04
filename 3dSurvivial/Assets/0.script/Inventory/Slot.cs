@@ -128,7 +128,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag 가 불린 슬롯의 인덱스 : " + Index);
+        //Debug.Log("OnBeginDrag 가 불린 슬롯의 인덱스 : " + Index);
 
         if (item != null)
         {
@@ -192,7 +192,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnDrop(PointerEventData eventData) // end보다 먼저 발동됨.
     {
-        Debug.Log("일단 드롭");
+        //Debug.Log("일단 드롭");
         
         if (eventData.pointerEnter != null) // 만약 포인트에 무언가 있다면
         {
@@ -208,8 +208,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                     if (eventData.pointerEnter.GetComponent<Slot>().item.itemName ==
                     DragSlot.Instance.dragSlot.item.itemName)
                     {
-                        Debug.Log("이름도 일치함.");
-                        Debug.Log(eventData.pointerEnter.GetComponent<Slot>().itemCount);
+                       // Debug.Log("이름도 일치함.");
+                        //Debug.Log(eventData.pointerEnter.GetComponent<Slot>().itemCount);
                         eventData.pointerEnter.GetComponent<Slot>().AddSlotcount(DragSlot.Instance.dragSlot.itemCount);
                         DragSlot.Instance.ClearSlot();
                     }

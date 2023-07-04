@@ -55,14 +55,14 @@ public class PigTurn : Node, IGetNowNodeState,IDgree
         
         if (_transform.rotation == Vecdgree) 
         {
-            Debug.Log("회전 끝" + _transform.rotation + "/" + Vecdgree);
+            //Debug.Log("회전 끝" + _transform.rotation + "/" + Vecdgree);
             return NodeState.SUCCESS;
         }
         else
         { 
             _transform.rotation = Quaternion.Lerp(_transform.rotation, Vecdgree, Time.deltaTime * 5f);
             //Debug.Log("PigTurn" + _transform.rotation);
-            Debug.Log("회전비교" + _transform.rotation + "/" + Vecdgree);
+            //Debug.Log("회전비교" + _transform.rotation + "/" + Vecdgree);
 
             return NodeState.RUNNING;
         }

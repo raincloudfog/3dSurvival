@@ -17,7 +17,7 @@ public class PIgHunger : Node
     {
         if (pig.Hunger <= 20)
         {
-            Debug.Log("돼지 배고프다.!");            
+            //Debug.Log("돼지 배고프다.!");            
             return NodeState.SUCCESS;
         }
         return NodeState.FAILURE;

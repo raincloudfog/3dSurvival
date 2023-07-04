@@ -91,6 +91,27 @@ public class CraftBox : MonoBehaviour
                 BoneFire();
             }
         }
+        else 
+        {
+            Debug.Log("왜안됨?");
+            if (
+            slots[0].item.itemName == ItemName.Bush &&
+            
+            slots[2].item.itemName == ItemName.Bush &&
+
+            slots[1].item.itemName == ItemName.Wood &&
+            slots[4].item.itemName == ItemName.Wood &&            
+            slots[6].item.itemName == ItemName.Wood &&
+            slots[7].item.itemName == ItemName.Wood &&
+            slots[8].item.itemName == ItemName.Wood)
+            {
+                Debug.Log("보트 조햡 가능");
+                Boat();
+            }
+            
+
+        }
+
 
     }
 
@@ -126,6 +147,19 @@ public class CraftBox : MonoBehaviour
         Inventory.AcquireItem(items[2], 1);
     }
 
+    public void Boat()
+    {
+        slots[0].AddSlotcount(-1);
+        slots[1].AddSlotcount(-1);
+        slots[2].AddSlotcount(-1);
+        slots[3].AddSlotcount(-1);
+        slots[4].AddSlotcount(-1);
+        slots[5].AddSlotcount(-1);
+        slots[6].AddSlotcount(-1);
+        slots[7].AddSlotcount(-1);
+        slots[8].AddSlotcount(-1);
+        Inventory.AcquireItem(items[3], 1);
+    }
     void CheckItemName()
     {
 

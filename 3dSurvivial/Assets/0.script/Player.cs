@@ -89,6 +89,10 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
+        else
+        {
+            isGround = false;
+        }
     }
 
     void Move() // 캐릭터 이동 

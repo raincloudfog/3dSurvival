@@ -32,7 +32,7 @@ public class PigMove : Node, IGetNowNodeState
     {
 
 
-        Debug.Log("이동중");
+        //Debug.Log("이동중");
             //rigid.velocity = transform.forward * speed* Time.deltaTime;
             rigid.velocity = transform.right * speed;
             return NodeState.RUNNING;

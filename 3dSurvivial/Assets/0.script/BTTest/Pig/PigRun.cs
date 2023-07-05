@@ -20,6 +20,7 @@ public class PigRun : Node
     public override NodeState Evaluate()
     {
         Debug.Log("´Þ·Á!!");
+        
         timer += Time.deltaTime;
         if(timer > 2)
         {

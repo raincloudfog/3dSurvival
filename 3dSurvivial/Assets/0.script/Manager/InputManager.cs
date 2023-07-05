@@ -76,7 +76,22 @@ public class InputManager : SingletonMono<InputManager>
                 KeyActions[KeyCode.E]();
             }
         }
-
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (KeyActions.ContainsKey(KeyCode.Escape))
+            {
+                KeyActions[KeyCode.Escape]();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (GameManager.Instance.isRunning == true)
+                return;
+            if (KeyActions.ContainsKey(KeyCode.I))
+            {
+                KeyActions[KeyCode.I]();
+            }
+        }
 
 
     }

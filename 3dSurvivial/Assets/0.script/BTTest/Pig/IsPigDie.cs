@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
-public class PIgHunger : Node
+using System;
+public class IsPigDie : Node
 {
     Animal pig;
-    Animator anim;
-
-
-    public PIgHunger(Animal animal, Animator anim)
+    Animator anim; // 테스트용도
+    public IsPigDie(Animal pig, Animator anim)
     {
-        pig = animal;
+        this.pig = pig;
         this.anim = anim;
     }
 
     public override NodeState Evaluate()
     {
-        if (pig.Hunger <= 20)
+        
+        if(pig.Hp <= 0)
         {
-            //Debug.Log("돼지 배고프다.!");            
             return NodeState.SUCCESS;
         }
-        anim.SetBool("PigEat", false);
         return NodeState.FAILURE;
     }
+
+
 }

@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void IsGround() 
     {
-        if(Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.0001f,LayerMask.GetMask("Ground")))
+        if(Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.5f,LayerMask.GetMask("Ground")))
         {
             isGround = true;
         }
@@ -192,7 +192,8 @@ public class Player : MonoBehaviour
 
     void CheckObject()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 15f)) // 박스로 바꿀 것
+       
+        if (Physics.BoxCast(transform.position, transform.lossyScale * 0.5f,transform.forward,out hit,Quaternion.identity, 5f)) // 박스로 바꿀 것
         {
             Object = hit.collider.gameObject;
             ischeck = true;

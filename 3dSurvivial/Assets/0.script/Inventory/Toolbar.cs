@@ -59,22 +59,36 @@ public class Toolbar : MonoBehaviour
             PreviewPositionUpdate();
             if(Input.GetMouseButtonDown(0))
             {
-                if(Preview.GetComponent<BoneFirePreview>().isBuildeable())
+                try
                 {
-                    GameObject obj = Instantiate(craft[0].Prefab, Preview.transform);
-                    obj.transform.SetParent(null);
-                    Destroy(Preview);
-                    isCraft = false;
+                    if (Preview.GetComponent<BoneFirePreview>().isBuildeable())
+                    {
+                        GameObject obj = Instantiate(craft[0].Prefab, Preview.transform);
+                        obj.transform.SetParent(null);
+                        Destroy(Preview);
+                        isCraft = false;
+                    }
+                    else if (Preview.GetComponent<BoatPreview>().isBuildable())
+                    {
+                        GameObject obj = Instantiate(craft[1].Prefab, Preview.transform);
+                        obj.transform.SetParent(null);
+                        Destroy(Preview);
+                        isCraft = false;
+                    }
+                }
+                catch
+                {
+                    if(Preview.GetComponent<BoatPreview>().isBuildable())
+                    {
+                        GameObject obj = Instantiate(craft[1].Prefab, Preview.transform);
+                        obj.transform.SetParent(null);
+                        Destroy(Preview);
+                        isCraft = false;
+                    }
                 }
                 
             }
-           
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        
     }
 
     void PreviewPositionUpdate()
@@ -173,9 +187,12 @@ public class Toolbar : MonoBehaviour
             Preview = Instantiate(craft[0].Prefabview,PlayerTF.position + PlayerTF.forward, Quaternion.identity);
             slots[number - 1].SetSlotcount(0);
         }
-        else
+        else if(slots[number -1].item.itemName == ItemName.Boat)
         {
-            //isCraft = false;
+
+            ButtonManager.Instance.CanyouEnd();
+            slots[number - 1].SetSlotcount(0);
+            
         }
         
     }

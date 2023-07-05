@@ -87,7 +87,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     }
     public void ClearSlot() // 초기화 슬롯
     {
-        Debug.Log("클리어 슬롯의 인덱스 : "+Index);
+        //Debug.Log("클리어 슬롯의 인덱스 : "+Index);
         item = null; // 아이템을 null로 바꿔줌
         itemCount = 0; // 숫자도 0으로 만들어주기
         itemimage.sprite = null; // 아이템이미지도 없애줍니다

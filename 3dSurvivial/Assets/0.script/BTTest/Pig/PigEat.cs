@@ -2,33 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
+using System;
 
 public class PigEat : Node
 {
     [SerializeField]
     Animal pig;
     Animator anim;
-
+    Action action;
     float timer;
 
-    public PigEat(Animal animal, Animator anim)
+    public PigEat(Animal animal, Animator anim,Action action)
     {
         pig = animal;
         this.anim = anim;
+        this.action = action;
     }
 
     public override NodeState Evaluate()
     {
-        if (pig.Hunger >= 20)
-        {
-            Debug.Log("¹ä´Ù¸ÔÀ½");
-        }
-
+       
         timer += Time.deltaTime;
         if(timer >= 1)
         {
+            action();
+            
             timer = 0;
-            pig.Hunger += 100;
+            
             Debug.Log("¹ä¸Ô´ÂÁß");
         }
         

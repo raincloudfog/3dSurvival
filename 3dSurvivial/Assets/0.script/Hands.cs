@@ -68,8 +68,9 @@ public class Hands : MonoBehaviour
         else if(_object.GetComponent<PigBT>() == true)
         {
             Pig = _object.GetComponent<PigBT>();
-            if(timer > 2)
+            if(timer > 1)
             {
+                Debug.Log("돼지 때린다");
                 timer = 0;
                 Pig.pig.Hp -= 1;
             }

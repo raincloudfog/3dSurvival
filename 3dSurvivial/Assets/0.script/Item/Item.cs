@@ -24,7 +24,9 @@ public enum ItemName
     PickAxe,
     Axe,
     BoneFire,
-    Boat
+    Boat,
+    Meat,
+    GrilldMeat
 
 
 

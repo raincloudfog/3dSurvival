@@ -35,7 +35,8 @@ public class SlotData
 public class GameManager : SingletonMono<GameManager>
 {
 
-
+    public bool isRunning;
+   
     bool isnew = false;
     public bool isActive = false; // 상호작용 가능
     public float  Hp = 100; // 플레이어 체력 // int로 하려했으나 체력 감소가 너무 빠른관계로 float로 변경
@@ -61,9 +62,11 @@ public class GameManager : SingletonMono<GameManager>
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         path = Application.dataPath + "/";
         filename = "save.json";
-        
+        InputManager.Instance.AddFunction(KeyCode.Escape, GameManager.Instance.EscMenu);
+
     }
     private void Start()
     {
@@ -103,6 +106,8 @@ public class GameManager : SingletonMono<GameManager>
 
     void input()
     {
+        if (isRunning == true)
+            return;
         if (Input.GetKeyDown(KeyCode.F5))
         {
             save();
@@ -111,14 +116,19 @@ public class GameManager : SingletonMono<GameManager>
         {
             Load();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.visible = true; // 커서 보이기
-            Cursor.lockState = CursorLockMode.None;
-            GameStop.SetActive(true);
-            dontmovemouse = true;
-            Time.timeScale = 0;
-        }
+        
+    }
+
+    public void EscMenu()
+    {
+        isRunning = true;
+        Cursor.visible = true; // 커서 보이기
+        Cursor.lockState = CursorLockMode.None;
+        GameStop.SetActive(true);
+        dontmovemouse = true;
+        Time.timeScale = 0;
+        InputManager.Instance.AddFunction(KeyCode.Escape, ButtonManager.Instance.Onrestart);
+        
     }
 
     /// <summary>

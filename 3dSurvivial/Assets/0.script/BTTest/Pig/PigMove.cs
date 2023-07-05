@@ -10,19 +10,20 @@ public class PigMove : Node, IGetNowNodeState
     float speed; // 이동속도
     float timer; // 타이머
     Animal pig;
-    
+    Animator anim;
     Rigidbody rigid;
 
-    bool isturn = false; // 방향전환
+    //bool isturn = false; // 방향전환
 
 
-    public PigMove(Transform transform, Animal animal, Rigidbody rigid /*, NowNodeState nowNodeState*/)
+    public PigMove(Transform transform, Animal animal, Rigidbody rigid, Animator anim /*, NowNodeState nowNodeState*/)
     {
         this.transform = transform;
         speed = animal.speed;
         this.pig = animal;
         this.rigid = rigid;
-        isturn = true;
+        //isturn = true;
+        this.anim = anim;
         //this.nowNodeState = nowNodeState;
     }
 
@@ -33,9 +34,10 @@ public class PigMove : Node, IGetNowNodeState
 
 
         //Debug.Log("이동중");
-            //rigid.velocity = transform.forward * speed* Time.deltaTime;
-            rigid.velocity = transform.right * speed;
-            return NodeState.RUNNING;
+        //rigid.velocity = transform.forward * speed* Time.deltaTime;
+        anim.SetTrigger("PigMove");
+        rigid.velocity = transform.right * speed;
+        return NodeState.RUNNING;
                          
     }
 

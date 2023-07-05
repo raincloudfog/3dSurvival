@@ -19,15 +19,16 @@ public enum NowNodeState
 public class PigBT : BehaviorTree.Tree
 {
     protected NowNodeState NowNodeState;
-
+    [SerializeField]
+    Inventory inventory;
     [SerializeField]
     Animal orgpig; // 돼지
     [SerializeField]
     public Animal pig; // 돼지
-    Animator anim;
+    [SerializeField] Animator anim;
     [SerializeField]
     Rigidbody rigid;
-    bool isturn;
+    bool isdaed;
     
     float timer; // 타이머
     //[SerializeField]bool ishit = false;
@@ -53,6 +54,11 @@ public class PigBT : BehaviorTree.Tree
         {
             new SequenceNode(new List<Node>
             {
+                new IsPigDie(pig,anim),
+                new Pigdie(this.gameObject, Die) // 나중에 포폴 만들때 액션으로 해볼것.
+            }),
+            new SequenceNode(new List<Node>
+            {
                 new PigHit(pig, transform), // 피가 달았다면
                 new SequenceNode(new List<Node> // 플레이어가 근처에있으면
                 {
@@ -62,18 +68,48 @@ public class PigBT : BehaviorTree.Tree
             }),
             new SequenceNode(new List<Node>
             {
-                new PIgHunger(pig), // 배고프면 
-                new PigEat(pig,anim) // 밥먹는다
+                new PIgHunger(pig,anim), // 배고프면 
+                new PigEat(pig,anim,Eat) // 밥먹는다
             }),
             new PigMoveTurn(new List<Node>
             {
-                new PigMove(transform, pig, rigid),// 돼지는 움직인다.
+                new PigMove(transform, pig, rigid,anim),// 돼지는 움직인다.
                 new PigTurn(transform, pig), // 돼지는 몇초마다 돌아야된다
             })
-                
+
         });
 
         return root;
     }
+
+    public void Die()
+    {
+        anim.SetTrigger("PigDie");
+        if(isdaed == false)
+        {
+            ItemManager.Instance.GetMeat();
+            isdaed = true;
+        }
+        
+        Destroy(this.gameObject, 1f);
+    }
     
+    void Eat()
+    {
+        anim.SetTrigger("PigEat");
+        pig.Hunger += 50;
+          
+    }
+    
+    /*void test()
+    {
+        StartCoroutine(Testcorutine());
+    }
+
+    IEnumerator Testcorutine()
+    {
+        Debug.Log("테스트 코루틴");
+        yield break;
+    }*/
+
 }

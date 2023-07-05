@@ -193,7 +193,7 @@ BoxCollider:
   m_GameObject: {fileID: 585359158998653156}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -290,7 +290,7 @@ BoxCollider:
   m_GameObject: {fileID: 2367583851460716339}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -387,7 +387,7 @@ BoxCollider:
   m_GameObject: {fileID: 3000536738305035956}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -655,8 +655,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.951416, y: 1.3236685, z: 1.4216919}
-  m_Center: {x: -3.6876526, y: -0.4540496, z: 1.38031}
+  m_Size: {x: 2.951416, y: 1.9341974, z: 1.6153126}
+  m_Center: {x: -3.6876526, y: -0.75931406, z: 0.5511694}
 --- !u!95 &82477677020730652
 Animator:
   serializedVersion: 5
@@ -665,7 +665,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5869485881167805273}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5b628bc1769088244b2d3f50a4981539, type: 2}
   m_CullingMode: 0
@@ -692,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orgpig: {fileID: 11400000, guid: 858f0a427557c074e8d35f1a387742e4, type: 2}
   pig: {fileID: 0}
+  anim: {fileID: 82477677020730652}
   rigid: {fileID: 3221006508317408047}
 --- !u!1 &7543414699979629955
 GameObject:
@@ -786,7 +787,7 @@ BoxCollider:
   m_GameObject: {fileID: 7543414699979629955}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -980,7 +981,7 @@ BoxCollider:
   m_GameObject: {fileID: 7675122107058748131}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1077,7 +1078,7 @@ BoxCollider:
   m_GameObject: {fileID: 8273557908120976455}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

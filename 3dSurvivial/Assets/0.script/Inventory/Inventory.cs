@@ -18,8 +18,14 @@ public class Inventory : MonoBehaviour
     public Slot[] slots;
     public bool invenOpen = true;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        InputManager.Instance.AddFunction(KeyCode.I, OpenInventory);
+    }
     void Start()
     {
+        
         slots = SlotsParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; i++)
         {
@@ -34,60 +40,33 @@ public class Inventory : MonoBehaviour
     }
     void tryOpenInventory()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        /*if(GameManager.Instance.isRunning == true)
         {
-            if(ItemManager.Instance.inventoryActivated == true)
-            {
-                OpenInventory();
-                Cursor.visible = true; // 커서 보이기
-                Cursor.lockState = CursorLockMode.None; // 커서 움직이기
-            }
-            else
-            {
-                CloseInventory();
-                Cursor.visible = false; // 커서 숨기기
-                Cursor.lockState = CursorLockMode.Locked; // 커서 잠구기
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            if (ItemManager.Instance.CreateinvenActivated == true)
-            {
-                OpenCreateinven();
-            }
-            else
-            {
-                closeCreateinven();
-            }
-        }
+            return;
+        }*/
+                
     }
 
-    void OpenCreateinven()
-    {
-        Createinven.SetActive(true);
-        ItemManager.Instance.CreateinvenActivated = false;
-        Time.timeScale = 0;
-    }
-
-    void closeCreateinven()
-    {
-        Createinven.SetActive(false);
-        ItemManager.Instance.CreateinvenActivated = true;
-        Time.timeScale = 1;
-    }
-    void OpenInventory()
+    
+    public void OpenInventory()
     {
         InventoryBase.SetActive(true);
         ItemManager.Instance.inventoryActivated = false;
         Time.timeScale = 0;
-
-        
+        Cursor.visible = true; // 커서 보이기
+        Cursor.lockState = CursorLockMode.None; // 커서 움직이기
+        InputManager.Instance.AddFunction(KeyCode.Escape, CloseInventory);
+        InputManager.Instance.AddFunction(KeyCode.I, CloseInventory);
     }
-    void CloseInventory()
+    public void CloseInventory()
     {
         InventoryBase.SetActive(false);
         ItemManager.Instance.inventoryActivated = true;
         Time.timeScale = 1;
+        Cursor.visible = false; // 커서 숨기기
+        Cursor.lockState = CursorLockMode.Locked; // 커서 잠구기
+        InputManager.Instance.AddFunction(KeyCode.I, OpenInventory);
+        InputManager.Instance.AddFunction(KeyCode.Escape, GameManager.Instance.EscMenu);
     }
 
     public void AcquireItem(Item _item, int _count)

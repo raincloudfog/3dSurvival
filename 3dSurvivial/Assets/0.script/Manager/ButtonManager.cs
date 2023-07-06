@@ -44,14 +44,14 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void End()
     {
-        GameManager.Instance.isRunning = false;
+        GameManager.Instance.isRunning = true;
         GameEnd.SetActive(true);
         ifEnd.SetActive(false);
     }
 
     public void CanyouEnd()
     {
-        GameManager.Instance.isRunning = false;
+        GameManager.Instance.isRunning = true;
         ifEnd.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

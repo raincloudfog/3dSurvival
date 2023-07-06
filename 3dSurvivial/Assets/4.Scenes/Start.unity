@@ -645,7 +645,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 478162920}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 672153092}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &478162920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,6 +890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 672153090}
   - component: {fileID: 672153091}
+  - component: {fileID: 672153092}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -912,13 +925,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973e43e54ef0fd141a8d5fdeb6aa4a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRunning: 0
+  tiredness: 0
   isActive: 0
   Hp: 100
   Hunger: 100
   thirst: 100
+  dontmovemouse: 0
+  GameStop: {fileID: 0}
+  craftBox: {fileID: 0}
+  toolbar: {fileID: 0}
   inven: {fileID: 0}
   player: {fileID: 0}
   stats: []
+  Sun: {fileID: 0}
+--- !u!114 &672153092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672153089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc0d2818253ea341ac08a7559b84d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inven: {fileID: 0}
+  buttons: []
+  GameStop: {fileID: 0}
+  _item: []
+  GameEnd: {fileID: 0}
+  ifEnd: {fileID: 0}
 --- !u!1 &724527559
 GameObject:
   m_ObjectHideFlags: 0

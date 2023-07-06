@@ -35,8 +35,8 @@ public class SlotData
 public class GameManager : SingletonMono<GameManager>
 {
 
-    public bool isRunning;
-   
+    public bool isRunning; // 무언가 실행되고 있는지확인하는 코드
+    public bool tiredness; // 피로함
     bool isnew = false;
     public bool isActive = false; // 상호작용 가능
     public float  Hp = 100; // 플레이어 체력 // int로 하려했으나 체력 감소가 너무 빠른관계로 float로 변경
@@ -121,6 +121,9 @@ public class GameManager : SingletonMono<GameManager>
 
     public void EscMenu()
     {
+        if (isRunning == true)
+            return;
+
         isRunning = true;
         Cursor.visible = true; // 커서 보이기
         Cursor.lockState = CursorLockMode.None;
@@ -159,7 +162,11 @@ public class GameManager : SingletonMono<GameManager>
 
             Hunger = Hunger <= 0 ? 0 : Hunger; // 만약 배고픔이 0이하이면 0으로 고정 아닐시 현재 배고픔 수치
             thirst = thirst <= 0 ? 0 : thirst; // 만약 갈증이 0이하이면 0으로 고정 아닐시 현재 갈증 수치
-            Hp -= Time.deltaTime;
+            tiredness = true;
+        }
+        else
+        {
+            tiredness = false;
         }
     }
     
@@ -206,8 +213,6 @@ public class GameManager : SingletonMono<GameManager>
         saveData.craftSlots.sprites = craftsave.sprites;
 
         //
-
-
         saveData.Hp = Hp; // 세이브에 현재 체력 넣어쥐
         saveData.Hunger = Hunger; // 세이브에 현재 배고픔 넣어주기
         saveData.thirst = thirst; // 세이브에 현재 목마름 넣어주기
@@ -257,11 +262,9 @@ public class GameManager : SingletonMono<GameManager>
                 {
                     inven.slots[i].text_Count.text = "0"; // 만약 아니라면 개수는 보여주지않을겁니다.
                     inven.slots[i].CountImage.SetActive(false);
-
                 }
             }
         }
-
         //
         //0621에 만든 코드 // 툴바 아이템 가져오기
         for (int i = 0; i < toolbar.slots.Length; i++)
@@ -323,10 +326,4 @@ public class GameManager : SingletonMono<GameManager>
         
        
     }
-
-    public void Load2()
-    {
-        //string str = JsonConvert.SerializeObject(/*저장할 클래스*/);
-    }
-
 }

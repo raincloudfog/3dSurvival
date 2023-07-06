@@ -41,6 +41,7 @@ public class ObjectClass : MonoBehaviour
         {
             inventory = FindObjectOfType<Inventory>();
         }
+        
     }    
 
     private void FixedUpdate()
@@ -49,15 +50,19 @@ public class ObjectClass : MonoBehaviour
         Vector3 pos = transform.position;
 
         float distance = (playerpos - pos).sqrMagnitude;
-        if(distance <= 2)
+        if(distance <= 3)
         {
             if(GetComponent<Tree>() == false && GetComponent<OreRock>() == false)
                 InputManager.Instance.AddFunction(KeyCode.E, PickUp); // 플레이어 감지하면 픽업 사용
         }
-        else if(distance > 2) // 만약 근처에 플레이어가 없을 경우 아이템을 줍지 못한다.
+        else if(distance > 3) // 만약 근처에 플레이어가 없을 경우 아이템을 줍지 못한다.
         {
             if(InputManager.Instance.Keyactions.ContainsKey(KeyCode.E) == false)
                 InputManager.Instance.AddFunction(KeyCode.E, NoPickup);
         }
+    }
+    protected virtual void Init()
+    {
+
     }
 }

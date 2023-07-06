@@ -194,6 +194,20 @@ public class Toolbar : MonoBehaviour
             slots[number - 1].SetSlotcount(0);
             
         }
+        else if(slots[number -1].item.itemName == ItemName.GrilldMeat)
+        {
+            GameManager.Instance.Hunger += 20;
+            GameManager.Instance.Hunger = GameManager.Instance.Hunger >= 100 ? 100 : GameManager.Instance.Hunger;
+            slots[number - 1].AddSlotcount(-1);
+            Debug.Log(GameManager.Instance.Hunger + "/" + "현재 배고픔");
+        }
+        else if(slots[number -1 ].item.itemName == ItemName.Berry)
+        {
+            GameManager.Instance.Hunger += 5;
+            GameManager.Instance.Hunger = GameManager.Instance.Hunger >= 100 ? 100 : GameManager.Instance.Hunger;
+            slots[number - 1].AddSlotcount(-1);
+            Debug.Log(GameManager.Instance.Hunger + "/" + "현재 배고픔");
+        }
         
     }
 }

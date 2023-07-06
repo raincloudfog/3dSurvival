@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class BoneFire : ObjectClass
 {
-    Inventory inven;
-    public void Start()
-    {
-        Init();
-    }
+    
+    
 
-    public void Init()
+    protected override void Init()
     {
-        if(inven == null)
-        {
-            inven = ButtonManager.Instance._inven;
-        }
+        
     }
     public override void PickUp()
     {
         Debug.Log("고기를 구움");
+        
         InputManager.Instance.AddFunction(KeyCode.E, NoPickup); // 픽업 후 바로 함수가 빈걸로 바꿔야 여러번 안눌림.
-        foreach (var item in inven.slots) // 포문으로도 바꿀 수 있음.
-        {
-            if (item.item.itemName == ItemName.Meat)
+        
+            for (int i = 0; i < inventory.slots.Length; i++)
             {
-                item.AddSlotcount(-1);
+                if(inventory.slots[i].item != null)
+                {
+                    if (inventory.slots[i].item.itemName == ItemName.Meat)
+                    {
+                        ItemManager.Instance.GetGrilledmeat();
+                        inventory.slots[i].AddSlotcount(-1);
+                        break; // 한번만 구울수 있음.
+                    }
+                }
+                
             }
 
-        }
+            
+        
+        
+        
     }
 }

@@ -28,7 +28,7 @@ public class PigBT : BehaviorTree.Tree
     [SerializeField] Animator anim;
     [SerializeField]
     Rigidbody rigid;
-    bool isdaed;
+    bool isdaed; // µÅÁö Á×¾ú´Â°¡
     
     float timer; // Å¸ÀÌ¸Ó
     //[SerializeField]bool ishit = false;
@@ -87,8 +87,10 @@ public class PigBT : BehaviorTree.Tree
         anim.SetTrigger("PigDie");
         if(isdaed == false)
         {
+            Debug.Log(isdaed + "isdead");
             ItemManager.Instance.GetMeat();
             isdaed = true;
+            Debug.Log(isdaed + "isdead");
         }
         
         Destroy(this.gameObject, 1f);

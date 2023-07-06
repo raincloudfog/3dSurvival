@@ -33,6 +33,8 @@ public class InputManager : SingletonMono<InputManager>
     // Update is called once per frame
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.A)) // A를 눌렀을경우
         {
             if(KeyActions.ContainsKey(KeyCode.A)) // 만약 딕셔너리에 A값이 들어가있을경우

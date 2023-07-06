@@ -70,11 +70,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckObject();
+
+        if (GameManager.Instance.isRunning == true)
+            return;
         Move();
         CameraMove();
         CameraMoveY();
         IsGround();
-        CheckObject();
+        
         CheckDesk();
     }
 
@@ -152,7 +156,7 @@ public class Player : MonoBehaviour
 
     void RunOn() // 달리기온 
     {
-        speed = Originspeed * 2;
+        speed = GameManager.Instance.tiredness ? Originspeed : Originspeed * 2;
         InputManager.Instance.AddFunction(KeyCode.LeftShift, RunOff);
     }
     void RunOff() // 달리기 오프

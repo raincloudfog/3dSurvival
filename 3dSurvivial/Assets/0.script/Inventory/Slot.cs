@@ -14,7 +14,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public Image itemimage; // 아이템 이미지
 
     public TMP_Text text_Count; // 텍스트의 글씨 //세이브에서 쓰일거라 퍼블릭으로 수정
-
+    Slot saveSlot; //  스왑용 슬롯
     
     public GameObject CountImage; // 
 
@@ -124,7 +124,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         }
     }
 
+   
 
+    
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -134,7 +136,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             DragSlot.Instance.SetDragSlot(this);
             if (eventData.button == PointerEventData.InputButton.Left)
-            {
+            {                
+                SwapSlot.Instance.saveSlot = eventData.pointerEnter.GetComponent<Slot>();
                 ClearSlot();
             }
             else if (eventData.button == PointerEventData.InputButton.Right)
@@ -155,17 +158,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
          DragSlot.Instance.transform.position = eventData.position;
         
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData) // 드래그가 온드랍 이후에 나옴
     {
-        //Debug.Log("일단 엔드 드래그"); // 엔드드레그 확인하는 코드
+       Debug.Log("일단 엔드 드래그"); // 엔드드레그 확인하는 코드
         if (eventData.pointerEnter == null) // 포인트에 널이면
         {
-            //Debug.Log("빈공간 이에요"); // 빈공간 확인하는 코드
+            Debug.Log("빈공간 이에요"); // 빈공간 확인하는 코드
 
-            if(item == null) // 만약 아이템이 비어있다면
+            if (item == null) // 만약 아이템이 비어있다면
             {
                 AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); // 새로 추가해주고
-                
+
             }
             else // 만약 아이템이 있다면
             {
@@ -180,10 +183,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                 if (eventData.pointerEnter.GetComponent<Slot>().item == null) // 만약 마우스포인터가 마지막에 간곳에 슬롯이 있고 아이템은 없다면
                 {
                     eventData.pointerEnter.GetComponent<Slot>().AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); //그 슬롯에 아이템을 추가해줍니다.
+                    
                     DragSlot.Instance.ClearSlot(); // 그리고 드래그 슬롯은 초기화 해줍니다.
-                } 
+                }
+                /*else // 만약 마우스포인터가 마지막에 간곳에 슬롯이있고 아이템은 있다면
+                {
+                    eventData.pointerEnter.GetComponent<Slot>().AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); //그 슬롯에 아이템을 추가해줍니다.
+                    AddItem(eventData.pointerEnter.GetComponent<Slot>().item, eventData.pointerEnter.GetComponent<Slot>().itemCount); // 원래슬롯에 아이템이랑 교체해줍니다.
+                    DragSlot.Instance.ClearSlot(); // 그리고 드래그 슬롯은 초기화 해줍니다
+                }*/
             }
-                
+               
         }
        
     }
@@ -191,17 +201,23 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
 
     public void OnDrop(PointerEventData eventData) // end보다 먼저 발동됨.
-    {
-        //Debug.Log("일단 드롭");
-        
+    {                
         if (eventData.pointerEnter != null) // 만약 포인트에 무언가 있다면
         {
             if(eventData.pointerEnter.GetComponent<Slot>() != null)
             {
                 if (eventData.pointerEnter.GetComponent<Slot>().item == null) // 근대 슬롯
                 {
-                    eventData.pointerEnter.GetComponent<Slot>().AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-                    DragSlot.Instance.ClearSlot();
+                    try
+                    {
+                        eventData.pointerEnter.GetComponent<Slot>().AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
+                        DragSlot.Instance.ClearSlot();
+                    }
+                    catch
+                    {
+                        Debug.LogError("오류뜸");
+                    }
+
                 }
                 else if (eventData.pointerEnter.GetComponent<Slot>().item != null)
                 {
@@ -213,23 +229,22 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                         eventData.pointerEnter.GetComponent<Slot>().AddSlotcount(DragSlot.Instance.dragSlot.itemCount);
                         DragSlot.Instance.ClearSlot();
                     }
+                    else // 만약 마우스 포인터가 마지막에 간곳에 슬롯이 있고 아이템도 있다면
+                    {
+                        //7 /6일날 만듬.
+                        
+                        Debug.Log("이름 일치하지 않음");
+                        Debug.Log(eventData.pointerEnter.GetComponent<Slot>().item + " /" + eventData.pointerEnter.GetComponent<Slot>().itemCount);
+                        AddItem(eventData.pointerEnter.GetComponent<Slot>().item, eventData.pointerEnter.GetComponent<Slot>().itemCount); // 아이템이 있던 곳에 커서에 있는 아이템과 교환해준다.
+                        SwapSlot.Instance.SetSaveSlot(eventData.pointerEnter.GetComponent<Slot>());
+                        eventData.pointerEnter.GetComponent<Slot>().AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); //그 슬롯에 아이템을 추가해줍니다.
+                        DragSlot.Instance.ClearSlot();
+                        Debug.Log("성공함");
+                        //
+                    }
                 }
             }
-            
-            
-            
         }
-
-        //Debug.Log("OnDrop 불린 슬롯의 인덱스 : " + Index);
-
-        else
-        {
-            AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-            DragSlot.Instance.ClearSlot();
-        }
-        
-            
+        //Debug.Log("OnDrop 불린 슬롯의 인덱스 : " + Index);        
     }
-
-   
 }

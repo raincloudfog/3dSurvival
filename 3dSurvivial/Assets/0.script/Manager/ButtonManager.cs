@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : SingletonMono<ButtonManager>
 {
+    [SerializeField]AudioSource clicksound;
     public Inventory _inven;
     [SerializeField] Button[] buttons;
     [SerializeField] GameObject GameStop; // 일시정지 창
@@ -18,7 +19,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void Onrestart()
     {
-        
+        clicksound.Play();
         GameManager.Instance.isRunning = false;
         GameStop.SetActive(false);
         Cursor.visible = false; // 커서 숨기기
@@ -31,6 +32,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void ExitGame()
     {
+        clicksound.Play();
         GameManager.Instance.isRunning = false;
         GameManager.Instance.save();
         SceneManager.LoadScene(0);
@@ -38,12 +40,14 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void Exit()
     {
+        clicksound.Play();
         GameManager.Instance.isRunning = false;
         Application.Quit();
     }
 
     public void End()
     {
+        clicksound.Play();
         GameManager.Instance.isRunning = true;
         GameEnd.SetActive(true);
         ifEnd.SetActive(false);
@@ -51,6 +55,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void CanyouEnd()
     {
+        clicksound.Play();
         GameManager.Instance.isRunning = true;
         ifEnd.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
@@ -59,6 +64,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
 
     public void NoEnd()
     {
+        clicksound.Play();
         GameManager.Instance.isRunning = false;
         ifEnd.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;

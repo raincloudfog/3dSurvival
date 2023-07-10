@@ -6,24 +6,26 @@ using BehaviorTree;
 
 public class PigMove : Node, IGetNowNodeState
 {
-    Transform transform; 
+    Transform transformTR; 
     float speed; // 이동속도
     float timer; // 타이머
     Animal pig;
     Animator anim;
     Rigidbody rigid;
+    PigBT pigBT;
 
     //bool isturn = false; // 방향전환
 
 
-    public PigMove(Transform transform, Animal animal, Rigidbody rigid, Animator anim /*, NowNodeState nowNodeState*/)
+    public PigMove(Transform transform, Animal animal, Rigidbody rigid, Animator anim ,PigBT pigBT)
     {
-        this.transform = transform;
+        this.transformTR = transform;
         speed = animal.speed;
         this.pig = animal;
         this.rigid = rigid;
         //isturn = true;
         this.anim = anim;
+        this.pigBT = pigBT;
         //this.nowNodeState = nowNodeState;
     }
 
@@ -31,12 +33,19 @@ public class PigMove : Node, IGetNowNodeState
 
     public override NodeState Evaluate()
     {
-
+        if(pigBT.timer > 2)
+        {
+            pigBT.timer = 0;
+            Debug.Log("멈춤");
+            return NodeState.FAILURE;
+        }
 
         //Debug.Log("이동중");
         //rigid.velocity = transform.forward * speed* Time.deltaTime;
-        anim.SetTrigger("PigMove");
-        rigid.velocity = transform.right * speed;
+        //anim.SetTrigger("PigMove");
+        transformTR.position += transformTR.forward * speed * Time.deltaTime;
+        /*Debug.Log("rigid.velocity"+rigid.velocity);
+        Debug.Log("transform " + transformTR.position);*/
         return NodeState.RUNNING;
                          
     }

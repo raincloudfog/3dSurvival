@@ -32,7 +32,7 @@ public class PigRun : Node
 
         //transform.position += transform.forward * speed * Time.deltaTime;
         //rigid.AddForce(transform.forward * speed);
-        rigid.velocity = transform.right * speed;
+        transform.position += transform.forward * speed* Time.deltaTime;
         return NodeState.RUNNING;
         
         

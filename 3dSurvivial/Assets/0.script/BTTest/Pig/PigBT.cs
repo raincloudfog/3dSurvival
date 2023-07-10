@@ -18,7 +18,6 @@ public enum NowNodeState
 
 public class PigBT : BehaviorTree.Tree
 {
-    protected NowNodeState NowNodeState;
     [SerializeField]
     Inventory inventory;
     [SerializeField]
@@ -29,8 +28,9 @@ public class PigBT : BehaviorTree.Tree
     [SerializeField]
     Rigidbody rigid;
     bool isdaed; // 돼지 죽었는가
+    public float timer;// 타이머
+
     
-    float timer; // 타이머
     //[SerializeField]bool ishit = false;
 
     protected override void Start()
@@ -38,7 +38,6 @@ public class PigBT : BehaviorTree.Tree
         pig = new Animal(orgpig);
        // pig.Hp = 5;
         base.Start();
-        
     }
     protected override void Update()
     {
@@ -71,9 +70,10 @@ public class PigBT : BehaviorTree.Tree
                 new PIgHunger(pig,anim), // 배고프면 
                 new PigEat(pig,anim,Eat) // 밥먹는다
             }),
-            new PigMoveTurn(new List<Node>
+            //new StopMove(rigid),
+            new SelectorNode(new List<Node>
             {
-                new PigMove(transform, pig, rigid,anim),// 돼지는 움직인다.
+                new PigMove(transform, pig, rigid,anim,this),// 돼지는 움직인다.
                 new PigTurn(transform, pig), // 돼지는 몇초마다 돌아야된다
             })
 

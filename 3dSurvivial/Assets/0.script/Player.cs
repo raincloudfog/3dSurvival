@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     float x, z;
     [SerializeField]
     float Originspeed = 5;
-    
+
+    public AudioSource audioSource; // 걷기 소리
+
     float speed; // 플레이어 이동 속도
     // 6월 26일 이동속도 확인 하는 코드
     public float OriGinSpeed
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour
 
     RaycastHit hit; // 오브젝트 확인 용 레이캐스트
     public GameObject Object; // 오브젝트 확인용
-
+    
 
 
     // Start is called before the first frame update
@@ -64,7 +66,8 @@ public class Player : MonoBehaviour
         speed = Originspeed;
         //InputManager.Instance.AddFunction(KeyCode.X, Sit);
         InputManager.Instance.AddFunction(KeyCode.LeftShift, RunOn);
-        InputManager.Instance.AddFunction(KeyCode.Space, Jump);        
+        InputManager.Instance.AddFunction(KeyCode.Space, Jump);
+       
     }
 
     // Update is called once per frame
@@ -110,6 +113,12 @@ public class Player : MonoBehaviour
         pos.Normalize(); 
         
         transform.Translate(pos * Time.deltaTime * speed, Space.World);
+
+        if ((x != 0 || z != 0) && audioSource.isPlaying == false && isGround == true)
+        {            
+            audioSource.Play();
+        }
+        
 
     }
     void CameraMove() // 캐릭터 마우스 방향으로 캐릭터 회전값 변경

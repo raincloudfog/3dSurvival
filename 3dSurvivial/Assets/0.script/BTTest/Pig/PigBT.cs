@@ -29,7 +29,8 @@ public class PigBT : BehaviorTree.Tree
     Rigidbody rigid;
     bool isdaed; // 돼지 죽었는가
     public float timer;// 타이머
-
+    public AudioClip[] audioClips; // 돼지소리들
+    public AudioSource audioSource; // 소리 쓰는곳
     
     //[SerializeField]bool ishit = false;
 
@@ -58,7 +59,7 @@ public class PigBT : BehaviorTree.Tree
             }),
             new SequenceNode(new List<Node>
             {
-                new PigHit(pig, transform), // 피가 달았다면
+                new PigHit(pig, transform,this), // 피가 달았다면
                 new SequenceNode(new List<Node> // 플레이어가 근처에있으면
                 {
                     new IfPlayernearPig(transform),
@@ -84,9 +85,11 @@ public class PigBT : BehaviorTree.Tree
 
     public void Die()
     {
+        
         anim.SetTrigger("PigDie");
         if(isdaed == false)
         {
+            audioSource.PlayOneShot(audioClips[1]);
             Debug.Log(isdaed + "isdead");
             ItemManager.Instance.GetMeat();
             isdaed = true;

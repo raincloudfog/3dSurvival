@@ -18,9 +18,9 @@ public class PigTurn : Node
     public override NodeState Evaluate()
     {
         int rand = Random.Range(-180, 180);
-        Debug.Log(rand + "rand ");
+        //Debug.Log(rand + "rand ");
         transform.rotation = Quaternion.Euler(new Vector3(0,rand , 0));
-        Debug.Log("µ½´Ï´Ù.");
+        //Debug.Log("µ½´Ï´Ù.");
         return NodeState.RUNNING;
         
     }

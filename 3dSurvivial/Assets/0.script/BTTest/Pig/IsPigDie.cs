@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 using System;
+
+/// <summary>
+/// 돼지의 피가 전부다 달았는지 체크
+/// </summary>
 public class IsPigDie : Node
 {
     Animal pig;
-    Animator anim; // 테스트용도
-    public IsPigDie(Animal pig, Animator anim)
+    
+    public IsPigDie(Animal pig)
     {
         this.pig = pig;
-        this.anim = anim;
     }
 
     public override NodeState Evaluate()

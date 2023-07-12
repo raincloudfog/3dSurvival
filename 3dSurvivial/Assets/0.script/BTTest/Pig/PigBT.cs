@@ -24,29 +24,24 @@ public class PigBT : BehaviorTree.Tree
     Animal orgpig; // 돼지
     [SerializeField]
     public Animal pig; // 돼지
-    [SerializeField] Animator anim;
+    //[SerializeField] Animator anim;// 애니메이터 버그로 취소함
     [SerializeField]
     Rigidbody rigid;
     bool isdaed; // 돼지 죽었는가
     public float timer;// 타이머
     public AudioClip[] audioClips; // 돼지소리들
     public AudioSource audioSource; // 소리 쓰는곳
-    
-    //[SerializeField]bool ishit = false;
 
     protected override void Start()
     {
-        pig = new Animal(orgpig);
-       // pig.Hp = 5;
+        pig = new Animal(orgpig); // 원래 돼지를 복사해놓기
         base.Start();
     }
     protected override void Update()
     {
         pig.Hunger -= Time.deltaTime;
         timer += Time.deltaTime;
-        
         base.Update();
-        
     }
     protected override Node SetupBehaviorTree()
     {
@@ -54,7 +49,7 @@ public class PigBT : BehaviorTree.Tree
         {
             new SequenceNode(new List<Node>
             {
-                new IsPigDie(pig,anim),
+                new IsPigDie(pig),
                 new Pigdie(this.gameObject, Die) // 나중에 포폴 만들때 액션으로 해볼것.
             }),
             new SequenceNode(new List<Node>
@@ -68,13 +63,13 @@ public class PigBT : BehaviorTree.Tree
             }),
             new SequenceNode(new List<Node>
             {
-                new PIgHunger(pig,anim), // 배고프면 
-                new PigEat(pig,anim,Eat) // 밥먹는다
+                new PIgHunger(pig), // 배고프면 
+                new PigEat(Eat) // 밥먹는다
             }),
             //new StopMove(rigid),
             new SelectorNode(new List<Node>
             {
-                new PigMove(transform, pig, rigid,anim,this),// 돼지는 움직인다.
+                new PigMove(transform, pig, rigid,this),// 돼지는 움직인다.
                 new PigTurn(transform, pig), // 돼지는 몇초마다 돌아야된다
             })
 
@@ -83,11 +78,12 @@ public class PigBT : BehaviorTree.Tree
         return root;
     }
 
+    /// <summary>
+    /// 피그는 죽었습니다.
+    /// </summary>
     public void Die()
     {
-        
-        anim.SetTrigger("PigDie");
-        if(isdaed == false)
+        if (isdaed == false)
         {
             audioSource.PlayOneShot(audioClips[1]);
             Debug.Log(isdaed + "isdead");
@@ -95,15 +91,16 @@ public class PigBT : BehaviorTree.Tree
             isdaed = true;
             Debug.Log(isdaed + "isdead");
         }
-        
+        // 오브젝트풀 사용할정도로 중요하지 않다고 판단되서 디스트로이
         Destroy(this.gameObject, 1f);
     }
     
+    /// <summary>
+    /// 피그는 먹습니다.
+    /// </summary>
     void Eat()
     {
-        anim.SetTrigger("PigEat");
         pig.Hunger += 50;
-          
     }
     
     /*void test()

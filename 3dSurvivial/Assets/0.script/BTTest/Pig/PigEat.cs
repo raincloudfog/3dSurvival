@@ -6,23 +6,18 @@ using System;
 
 public class PigEat : Node
 {
-    [SerializeField]
-    Animal pig;
-    Animator anim;
+    
     Action action;
     float timer;
 
-    public PigEat(Animal animal, Animator anim,Action action)
+    public PigEat(Action action)
     {
-        pig = animal;
-        this.anim = anim;
         this.action = action;
     }
 
     public override NodeState Evaluate()
     {
-       
-        timer += Time.deltaTime;
+        timer += Time.deltaTime; // 실제로 지난시간은 아닐지도 모름
         if(timer >= 1)
         {
             action();

@@ -23,10 +23,10 @@ public class WeaponManager : SingletonMono<WeaponManager>
     }
     public WeaponType weaponenum = WeaponType.End;
     Dictionary<KeyCode, Itemscript> itemChange = new Dictionary<KeyCode, Itemscript>();
-    Dictionary<WeaponType, IWeaponType> weapons = new Dictionary<WeaponType, IWeaponType>()
+    /*Dictionary<WeaponType, IWeaponType> weapons = new Dictionary<WeaponType, IWeaponType>()
     {
         { WeaponType.pickAxe, new PickAxe()}, {WeaponType.Axe, new Axe() }
-    };
+    };*/
 
     private void FixedUpdate()
     {
@@ -78,7 +78,7 @@ public class WeaponManager : SingletonMono<WeaponManager>
     public void SetWeaponType(WeaponType weaponType)
     {
         weaponenum = weaponType;
-        this.weaponType = weapons[weaponType];
+        /*this.weaponType = weapons[weaponType];*/
     }
 
 }

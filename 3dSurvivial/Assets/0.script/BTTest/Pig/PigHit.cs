@@ -17,7 +17,7 @@ public class PigHit : Node
         pig = animal;
         CurHp = animal.Hp;
         this.transform = transform;
-        Debug.Log(CurHp);
+        //Debug.Log(CurHp);
         this.pigBT = pigBT;
     }
     

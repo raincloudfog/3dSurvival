@@ -37,7 +37,7 @@ public class Item : ScriptableObject // 게임오브젝트에 넣어줄필요없다..??
 {
     
     //아이템 유형
-    public ItemType itemType;
+    public ItemType itemType = ItemType.End;
     //아이템의 이미지
     public Sprite itemImage;
 

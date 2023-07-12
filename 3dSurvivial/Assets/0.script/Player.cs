@@ -81,8 +81,7 @@ public class Player : MonoBehaviour
         CameraMove();
         CameraMoveY();
         IsGround();
-        
-        CheckDesk();
+
     }
 
 
@@ -146,22 +145,6 @@ public class Player : MonoBehaviour
         cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0, 0);
     }
 
-    void Sit() // 앉기 함수
-    {
-        isSit = !isSit;
-        if(isSit == true)
-        {
-            //cam.transform.position = new Vector3(0, -0.5f, 0);
-            transform.localScale = new Vector3(1, 0.5f, 1);
-            speed = Originspeed * 0.5f;            
-        }
-        else
-        {
-            //cam.transform.position = new Vector3(0, 1, 0);
-            transform.localScale = new Vector3(1, 1, 1);
-            speed = Originspeed;            
-        }        
-    }
 
     void RunOn() // 달리기온 
     {
@@ -183,24 +166,6 @@ public class Player : MonoBehaviour
         rigid.velocity = Vector3.up * JumpPower;
         isGround = false;        
     }      
-    void CheckDesk()
-    {
-        RaycastHit hit;
-        if(Physics.BoxCast(transform.position, transform.lossyScale / 2, transform.forward, out hit,Quaternion.identity, 1f))
-        {
-            if(hit.collider.CompareTag("Desk") == true)
-            {
-                InputManager.Instance.AddFunction(KeyCode.E, UIManager.Instance.CreftBoxOn);
-            }
-            
-        }
-        if (hit.collider == null)
-        {
-            
-            UIManager.Instance.CreftBoxOff();
-        }
-    }
-
 
 
     void CheckObject()
@@ -216,9 +181,6 @@ public class Player : MonoBehaviour
             Object = null;
             ischeck = false;
         }
-
-       
-        
     }
 
 }

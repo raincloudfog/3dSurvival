@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class SaveData
 {
+    
     public  WeaponManager.WeaponType weaponenum = WeaponManager.WeaponType.End;
     public Vector3 playerpos;
     public float Hp;
@@ -49,7 +50,7 @@ public class GameManager : SingletonMono<GameManager>
     [SerializeField] CraftBox craftBox;
     [SerializeField]
     Toolbar toolbar;
-    [SerializeField] Inventory inven;
+    public Inventory inven;
 
     public Player player;
 
@@ -313,8 +314,8 @@ public class GameManager : SingletonMono<GameManager>
         //
 
         //6월 26일
-        Debug.Log(player.OriGinSpeed);
-        Debug.Log(player.Speed);
+        /*Debug.Log(player.OriGinSpeed);
+        Debug.Log(player.Speed);*/
         player.Speed = 5;
         statsFillmount(); //  로드했을때 스탯들 이미지 변하는거 표시하기
         Sun.transform.eulerAngles = _saveData.Lightrotate;

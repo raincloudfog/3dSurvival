@@ -21,6 +21,10 @@ public class Animal : ScriptableObject
     //동물의 달리기 속도
     public float Runspeed;
 
+    /// <summary>
+    /// 애니멀 생성자
+    /// </summary>
+    /// <param name="animal"></param>
     public Animal(Animal animal)
     {
         maxHp = animal.maxHp;

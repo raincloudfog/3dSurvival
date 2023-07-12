@@ -242,6 +242,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                         slot.AddItem(item, itemCount);
                         
                         slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);*/
+                        return;
                     }
                     SwapSlot.Instance.saveSlot.AddItem(slot.item, slot.itemCount);
                     slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
@@ -258,9 +259,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         Debug.Log("버그확인");
         Slot tmp = new Slot(); // tmp에 save를 넣어주고
         Debug.Log("tmp에서 버그걸림");
-        Debug.Log(tmp.item);
-        Debug.Log(SwapSlot.Instance.saveSlot.item + " / " + SwapSlot.Instance.saveSlot.itemCount);        
-        tmp.AddItem(SwapSlot.Instance.saveSlot.item, SwapSlot.Instance.saveSlot.itemCount);
+        tmp.item = SwapSlot.Instance.saveSlot.item;
+        tmp.itemCount = SwapSlot.Instance.saveSlot.itemCount;
+        tmp.itemimage = SwapSlot.Instance.saveSlot.itemimage;
+        //tmp.AddItem(SwapSlot.Instance.saveSlot.item, SwapSlot.Instance.saveSlot.itemCount);
         Debug.Log("tmp에서 버그걸림2");
         SwapSlot.Instance.saveSlot.AddItem(slot.item, slot.itemCount);
         slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
@@ -268,6 +270,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         
         slot.AddSlotcount(tmp.itemCount);
         Debug.Log("더하는과정에서 버그걸림");
+        DragSlot.Instance.ClearSlot();
         
     }
 

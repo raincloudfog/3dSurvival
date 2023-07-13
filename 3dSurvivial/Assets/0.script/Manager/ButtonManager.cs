@@ -17,6 +17,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
     [SerializeField] GameObject GameEnd;
     [SerializeField] GameObject ifEnd;
 
+    //일시정지 풀어주는 버튼
     public void Onrestart()
     {
         clicksound.Play();
@@ -29,7 +30,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         Time.timeScale = 1;
         
     }
-
+    // 저장하고 메인메뉴 버튼
     public void ExitGame()
     {
         clicksound.Play();
@@ -37,7 +38,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         GameManager.Instance.save();
         SceneManager.LoadScene(0);
     }
-
+    //게임 끄기 버튼
     public void Exit()
     {
         clicksound.Play();
@@ -45,6 +46,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         Application.Quit();
     }
 
+    // 게임엔딩
     public void End()
     {
         clicksound.Play();
@@ -53,6 +55,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         ifEnd.SetActive(false);
     }
 
+    // 정말로 엔딩을 할거냐고 물어보는 버튼
     public void CanyouEnd()
     {
         clicksound.Play();
@@ -62,6 +65,7 @@ public class ButtonManager : SingletonMono<ButtonManager>
         Cursor.visible = true;
     }
 
+    // 엔딩을 (끝내기)를 안하는 버튼
     public void NoEnd()
     {
         clicksound.Play();

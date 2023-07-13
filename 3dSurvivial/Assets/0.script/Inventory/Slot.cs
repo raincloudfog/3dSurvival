@@ -175,19 +175,23 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     {
 
         //Debug.Log("일단 엔드 드래그"); // 엔드드레그 확인하는 코드
-        if (eventData.pointerEnter == null) // 포인트에 널이면 // 빈공간이면
+        // 포인트에 널이면 // 빈공간이면
+        if (eventData.pointerEnter == null) 
         {
+            // 빈공간 확인하는 코드
+            //Debug.Log("빈공간 이에요"); 
 
-            Debug.Log("빈공간 이에요"); // 빈공간 확인하는 코드
-
+            // 만약 아이템이 비어있고 드래그아이템도 있을경우
             if (item == null&&
-                DragSlot.Instance.dragSlot.item != null) // 만약 아이템이 비어있고 드래그아이템도 있을경우
+                DragSlot.Instance.dragSlot.item != null) 
             {
-                AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); // 새로 추가해주고
+                // 새로 추가해주고
+                AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount); 
             }
             else // 만약 아이템이 있다면
             {
-                AddSlotcount(DragSlot.Instance.dragSlot.itemCount); // 아이템 갯수를 추가해줍니다.
+                // 아이템 갯수를 추가해줍니다.
+                AddSlotcount(DragSlot.Instance.dragSlot.itemCount); 
             }
             DragSlot.Instance.ClearSlot(); // 그리고 드래그 슬롯을 초기화 시켜줍니다.
         }
@@ -246,7 +250,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
                     }
                     SwapSlot.Instance.saveSlot.AddItem(slot.item, slot.itemCount);
                     slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-                    
+                    DragSlot.Instance.ClearSlot();
                     
                 }
                 
@@ -256,67 +260,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     }
     void Chageslot(Slot slot)// slot1 = save , slot2 = evnetData
     {
-        Debug.Log("버그확인");
+        
         Slot tmp = new Slot(); // tmp에 save를 넣어주고
-        Debug.Log("tmp에서 버그걸림");
+        
         tmp.item = SwapSlot.Instance.saveSlot.item;
         tmp.itemCount = SwapSlot.Instance.saveSlot.itemCount;
         tmp.itemimage = SwapSlot.Instance.saveSlot.itemimage;
-        //tmp.AddItem(SwapSlot.Instance.saveSlot.item, SwapSlot.Instance.saveSlot.itemCount);
-        Debug.Log("tmp에서 버그걸림2");
         SwapSlot.Instance.saveSlot.AddItem(slot.item, slot.itemCount);
         slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-        Debug.Log("스왑에서 버그걸림");
-        
         slot.AddSlotcount(tmp.itemCount);
-        Debug.Log("더하는과정에서 버그걸림");
         DragSlot.Instance.ClearSlot();
         
     }
-
- 
-    /*public void OnDrop(PointerEventData eventData)
-    {
-        if (eventData.pointerEnter != null) // 만약 포인트에 무언가 있다면
-        {
-            if (eventData.pointerEnter.GetComponent<Slot>() != null &&
-                eventData.pointerEnter.GetComponent<Slot>().item != null) // 포인트에 슬롯이 있고 아이템도 있다면{
-            {
-                Slot slot = eventData.pointerEnter.GetComponent<Slot>();
-                if (slot.item == DragSlot.Instance.dragSlot.item)
-                {
-                    if (slot.item.itemType == ItemType.Equipment)
-                    {
-                        DragSlot.Instance.ClearSlot();
-                        return;
-                    }
-                    slot.AddSlotcount(DragSlot.Instance.dragSlot.itemCount);
-                    DragSlot.Instance.ClearSlot();
-                    return;
-                }
-                else if (slot.item != DragSlot.Instance.dragSlot.item)
-                {
-                    
-                    if (item == null)
-                    {
-                        Debug.Log("슬롯아이템과 드래그 아이템과 다름 그리고 현재 슬롯 비워져 있음.");
-                        SwapSlot.Instance.saveSlot.AddItem(slot.item, slot.itemCount);
-                        slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-                        DragSlot.Instance.ClearSlot();
-                    }
-                    if(item != null)
-                    {
-                        Debug.Log("슬롯아이템과 드래그 아이템과 다름 그리고 현재 슬롯 채워져 있음.");
-                        Debug.Log(item);
-                        GameManager.Instance.inven.AcquireItem(SwapSlot.Instance.saveSlot.item, SwapSlot.Instance.saveSlot.itemCount);
-                        slot.AddItem(DragSlot.Instance.dragSlot.item, DragSlot.Instance.dragSlot.itemCount);
-                        
-                    }
-
-                }
-
-            }
-        }
-    }*/
 }
 

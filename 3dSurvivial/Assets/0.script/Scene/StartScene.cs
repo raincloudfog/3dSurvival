@@ -25,6 +25,7 @@ public class StartScene : MonoBehaviour
         filename = "newStart";
     }
 
+    //시작 다음 버튼들을 켜주고 시작나가기버튼을 꺼준다.
     public void NextStart()
     {
 
@@ -38,6 +39,7 @@ public class StartScene : MonoBehaviour
         }                    
     }
 
+    //뒤로가기 새로하기 이어하기 부분을 꺼주고 다시 메인화면으로 돌아간다.
     public void Backinterface()
     {
 
@@ -51,6 +53,7 @@ public class StartScene : MonoBehaviour
         }
     }
 
+    //새로하기
     public void NextNewScene()
     {
         saveData.isnew = true;
@@ -60,6 +63,8 @@ public class StartScene : MonoBehaviour
         SceneManager.LoadScene(1);
 
     }
+
+    //이어하기
     public void restartScene()
     {
         saveData.isnew = false;

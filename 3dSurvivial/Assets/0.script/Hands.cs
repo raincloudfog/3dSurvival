@@ -88,7 +88,8 @@ public class Hands : MonoBehaviour
     }
     void CheckOut()
     {
-        ObjCComponent = null;                
+        ObjCComponent = null;
+        Pig = null;
     }
    
 }
